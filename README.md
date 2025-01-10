@@ -47,3 +47,60 @@ This project will help you:
 - Use React to build a modern, user-friendly interface. 
 
 ---
+
+---
+
+Day 2: Login Page Implementation
+What I Did Today
+On Day 2 of the follow-along project, I worked on implementing a LoginPage component using React. Below are the details of what was accomplished:
+
+Key Features
+State Management:
+
+Utilized the useState hook to manage user credentials (email and password).
+Dynamic Input Handling:
+
+Added a handleChange function to dynamically update the state as the user types in the form fields.
+Form Submission:
+
+Created a handleClickLogin function to handle form submission. (Currently, API integration is commented out for future implementation.)
+Responsive Design:
+
+Designed the login page using Tailwind CSS for a modern and responsive layout.
+
+```const [credentials, setCreds] = useState({
+  email: "",
+  password: ""
+});
+
+const handleChange = (event) => {
+  const { name, value } = event.target;
+  setCreds({
+    ...credentials,
+    [name]: value
+  });
+};
+
+const handleClickLogin = (event) => {
+  event.preventDefault();
+  console.log("Submitted Credentials:", credentials);
+};
+```
+
+User Interface
+The login page includes:
+Email Input Field: For users to enter their email address.
+Password Input Field: For users to enter their password.
+Submit Button: To initiate the login process.
+Challenges Faced
+Tailwind CSS Setup:
+
+Ensured the Tailwind setup was correctly configured in tailwind.config.js.
+Imported required Tailwind directives in the project’s main CSS file.
+Backend API Integration:
+
+While initially planning to use Axios, API integration is postponed, and the Axios import is commented out for now.
+Next Steps
+Integrate backend API for user authentication.
+Implement proper error handling and form validation.
+Enhance UI/UX by displaying success or error messages after login attempts.
