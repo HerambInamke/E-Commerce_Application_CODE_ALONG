@@ -127,11 +127,11 @@ function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-6 py-12">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-gray-100 to-gray-300 px-6 py-12">
       <div className="w-full max-w-md space-y-8 bg-white p-8 rounded-2xl shadow-2xl transition-transform hover:scale-105">
         <div className="text-center">
-          <h2 className="text-4xl font-extrabold text-gray-900 mb-2">Welcome Back!</h2>
-          <p className="text-sm text-gray-600">Sign in to continue to your dashboard</p>
+          <h2 className="text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-blue-400 text-transparent bg-clip-text mb-2">Sign In</h2>
+          <p className="text-sm text-gray-600">Access your account to start shopping</p>
         </div>
         <form className="space-y-6" onSubmit={handleClickLogin}>
           <div>
@@ -150,7 +150,7 @@ function LoginPage() {
               value={credentials.email}
               onChange={handleChange}
               placeholder="Enter your email"
-              className="w-full mt-2 px-4 py-3 border border-gray-300 rounded-lg shadow-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 hover:border-purple-500"
+              className="w-full mt-2 px-4 py-3 border border-gray-300 rounded-lg shadow-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500"
             />
           </div>
           <div>
@@ -170,12 +170,12 @@ function LoginPage() {
                 value={credentials.password}
                 onChange={handleChange}
                 placeholder="Enter your password"
-                className="w-full mt-2 px-4 py-3 border border-gray-300 rounded-lg shadow-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 hover:border-purple-500"
+                className="w-full mt-2 px-4 py-3 border border-gray-300 rounded-lg shadow-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500"
               />
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
-                className="absolute inset-y-0 right-3 flex items-center text-gray-600 hover:text-purple-500 focus:outline-none"
+                className="absolute inset-y-0 right-3 flex items-center text-gray-600 hover:text-blue-500 focus:outline-none"
               >
                 {showPassword ? "Hide" : "Show"}
               </button>
@@ -183,7 +183,7 @@ function LoginPage() {
             <div className="text-right mt-2">
               <a
                 href="#"
-                className="text-sm text-purple-600 hover:text-purple-500"
+                className="text-sm text-blue-600 hover:text-blue-500"
               >
                 Forgot your password?
               </a>
@@ -197,7 +197,7 @@ function LoginPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`w-full py-3 transition-all duration-200 ${isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-purple-600 hover:bg-purple-500 transform hover:scale-105"} text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500`}
+            className={`w-full py-3 transition-all duration-200 ${isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-500 transform hover:scale-105"} text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
           >
             {isSubmitting ? "Signing In..." : "Sign In"}
           </button>
@@ -207,7 +207,7 @@ function LoginPage() {
             Don’t have an account? 
             <a
               href="#"
-              className="text-purple-600 hover:text-purple-500 font-semibold"
+              className="text-blue-600 hover:text-blue-500 font-semibold"
             >
               Sign up
             </a>
