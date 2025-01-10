@@ -50,6 +50,8 @@ This project will help you:
 
 ---
 
+### **Milestone 2: Project Setup and Login Page** 
+
 Day 2: Login Page Implementation
 What I Did Today
 On Day 2 of the follow-along project, I worked on implementing a LoginPage component using React. Below are the details of what was accomplished:
