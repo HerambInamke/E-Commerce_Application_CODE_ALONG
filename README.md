@@ -107,7 +107,7 @@ Integrate backend API for user authentication.
 Implement proper error handling and form validation.
 Enhance UI/UX by displaying success or error messages after login attempts.
 
-Milestone 3 Overview
+### Milestone 3 Overview
 In this milestone, I have successfully implemented the following key features for the backend project:
 
 Backend Folder Structure
