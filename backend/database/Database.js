@@ -1,18 +1,18 @@
-if(process.env.NODE_ENV !=="PRODUCTION"){
-    require('dotenv').config({
-        path: './config/.env',
-    });
-};
-
 const mongoose = require('mongoose');
 
-const connectDB = () => {
-    mongoose
-    .connect(process.env.DB_URL)
-    .then((data) => {
-        console.log(`Database connected successfully: ${data.connection.host}`);
-    })
-    .catch((err) => console.log('Database connection failed...', err.message));
-}
+const connectDatabase = async () => {
+  try {
+    const connection = await mongoose.connect(process.env.DB_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      tls: true, // Ensures TLS is used
+    });
 
-module.exports = connectDB;
+    console.log(`Database connected: ${connection.connection.host}`);
+  } catch (err) {
+    console.error(`Database connection failed: ${err.message}`);
+    process.exit(1); // Exit process on failure
+  }
+};
+
+module.exports = connectDatabase;
