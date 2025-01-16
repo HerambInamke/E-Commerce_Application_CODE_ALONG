@@ -36,7 +36,17 @@ const signupPage = () => {
                 "Accept": "any"
             },
         };
-        axios.post("http://localhost:5000/api/user/register", newForm, config)
-    }
+        axios.post("http://localhost:8000/api/v2/user/create-user", newForm, config).then((res) =>{
+            console.log(res.data);
+        }).catch((err) => {
+            console.log(err);
+        });
+    };
+    return (
+        <div className="min-h-screen bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-12 flex flex-col justify-center sm:px-6 lg:px-8">
+            
+        </div>
+    );
+    
 
 }
