@@ -62,5 +62,5 @@ const signupPage = () => {
         </div>
 
         </div>
-    )
+    )
 }
