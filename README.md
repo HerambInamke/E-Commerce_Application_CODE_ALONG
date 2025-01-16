@@ -160,3 +160,49 @@ This is a simple React-based signup page that allows users to register with thei
    ```bash
    npm install react-icons axios
 
+---
+
+# Milestone 6: Secure User Signup - Livebooks Project
+Overview
+Features Implemented
+Password Encryption
+
+Implemented bcrypt to hash user passwords during the signup process.
+Stored the hashed passwords in the database to ensure security and prevent unauthorized access.
+Secure User Data Storage
+
+Collected and securely saved the following user data:
+Name
+Email
+Encrypted Password
+Ensured compliance with industry standards for secure data handling.
+Learning Goals Achieved
+Password Encryption:
+Learned how to securely hash passwords using bcrypt and the importance of encryption in protecting user data.
+
+Data Security:
+Gained experience in securely storing user information while adhering to privacy regulations.
+
+Why Password Encryption is Important
+User Protection:
+Protects sensitive data in case of a database breach.
+
+Privacy:
+Prevents passwords from being exposed to unauthorized individuals.
+
+Compliance:
+Ensures adherence to security laws and regulations, such as GDPR and PCI-DSS.
+
+Prevention of Password Theft:
+Makes it significantly harder for attackers to crack passwords.
+
+Steps Taken
+Password Hashing:
+
+Used bcrypt.hash() to encrypt passwords before saving them to the database.
+Data Storage:
+
+Stored user details (name, email, and hashed password) securely in the MongoDB database.
+Testing:
+
+Verified the functionality by creating test users and checking the stored hashed passwords in the database.
