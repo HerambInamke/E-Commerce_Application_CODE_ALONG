@@ -49,13 +49,13 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-12 flex flex-col justify-center sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-r from-teal-600 to-blue-900 px-6 py-12 flex flex-col justify-center sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-bold text-gray-950">
+        <h2 className="mt-6 text-center text-3xl font-semibold text-white">
           Register as a new user
         </h2>
       </div>
-      <div className="mt-8 sm:w-full sm:max-w-md">
+      <div className="mt-8 sm:w-full sm:max-w-md mx-auto">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
             {/* Name Input */}
@@ -69,7 +69,7 @@ const SignupPage = () => {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 sm:text-sm"
+                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 sm:text-sm"
               />
             </div>
 
@@ -84,7 +84,7 @@ const SignupPage = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 sm:text-sm"
+                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 sm:text-sm"
               />
             </div>
 
@@ -100,7 +100,7 @@ const SignupPage = () => {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 sm:text-sm"
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 sm:text-sm"
                 />
                 {visible ? (
                   <AiOutlineEye
@@ -118,7 +118,7 @@ const SignupPage = () => {
               </div>
             </div>
 
-            {/* Avatar Upload */}
+
             <div>
               <label htmlFor="avatar" className="block text-sm font-medium text-gray-700">
                 Avatar
@@ -152,20 +152,21 @@ const SignupPage = () => {
               </div>
             </div>
 
+
             {/* Submit Button */}
             <div>
               <button
                 type="submit"
-                className="w-full h-[40px] flex justify-center py-2 px-4 border text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                className="w-full h-[40px] flex justify-center py-2 px-4 border text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700"
               >
                 Submit
               </button>
             </div>
 
             {/* Already Registered */}
-            <div className={`${styles.normalFlex} w-full`}>
+            <div className="flex justify-center w-full mt-4">
               <h4>Already have an account?</h4>
-              <Link to="/login" className="text-blue-600 pl-2">
+              <Link to="/login" className="text-teal-600 pl-2">
                 Sign In
               </Link>
             </div>
