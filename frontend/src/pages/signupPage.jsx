@@ -28,11 +28,18 @@ const SignupPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Create a new FormData instance and append data
     const newForm = new FormData();
     newForm.append("file", avatar);
     newForm.append("name", name);
     newForm.append("email", email);
     newForm.append("password", password);
+    
+    // Log FormData content to verify it's being populated correctly
+    for (let [key, value] of newForm.entries()) {
+      console.log(`${key}: ${value}`);
+    }
 
     const config = {
       headers: {
@@ -41,24 +48,23 @@ const SignupPage = () => {
       },
     };
 
+    // Send the POST request to the backend
     axios
       .post("http://localhost:8000/api/v2/user/create-user", newForm, config)
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
+      .then((res) => console.log("Response: ", res.data)) // Log successful response
+      .catch((err) => console.log("Error: ", err)); // Log error
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-600 via-gray-100 to-blue-400 px-6 py-12 flex flex-col justify-center sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-r from-blue-200 via-blue-300 to-blue-400 px-6 py-12 flex flex-col justify-center sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-black drop-shadow-lg transform transition-all duration-500 ease-in-out hover:scale-105 hover:text-gray-800">
           Register as a New User
         </h2>
-
       </div>
+
       <div className="mt-8 sm:w-full sm:max-w-md mx-auto">
         <div className="bg-white py-8 px-4 shadow-lg sm:rounded-lg sm:px-10 hover:scale-105 hover:shadow-2xl transition-transform duration-300">
-
-
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
@@ -70,7 +76,7 @@ const SignupPage = () => {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-gray-50 text-gray-900 placeholder-gray-400 transition-transform duration-200 hover:scale-105"
+                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-gray-50 text-gray-900 placeholder-gray-400 transition-transform duration-200 hover:scale-105"
                 placeholder="Enter your full name"
               />
             </div>
@@ -85,7 +91,7 @@ const SignupPage = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-gray-50 text-gray-900 placeholder-gray-400 transition-transform duration-200 hover:scale-105"
+                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-gray-50 text-gray-900 placeholder-gray-400 transition-transform duration-200 hover:scale-105"
                 placeholder="Enter your email"
               />
             </div>
@@ -101,7 +107,7 @@ const SignupPage = () => {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-gray-50 text-gray-900 placeholder-gray-400 transition-transform duration-200 hover:scale-105"
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-gray-50 text-gray-900 placeholder-gray-400 transition-transform duration-200 hover:scale-105"
                   placeholder="Enter your password"
                 />
                 {visible ? (
@@ -156,7 +162,7 @@ const SignupPage = () => {
             <div>
               <button
                 type="submit"
-                className="w-full h-[40px] flex justify-center py-2 px-4 border text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
+                className="w-full h-[40px] flex justify-center py-2 px-4 border text-sm font-medium rounded-md text-white bg-blue-400 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
               >
                 Submit
               </button>
