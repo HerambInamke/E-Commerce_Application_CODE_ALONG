@@ -127,3 +127,36 @@ Throughout this milestone, I have followed best practices to ensure that the bac
 
 With these achievements, the foundation for a robust and scalable backend system is firmly in place. Moving forward, I am well-prepared to tackle more complex functionalities, optimize the existing codebase, and ensure the backend system aligns seamlessly with the project’s overall goals.
 
+---
+
+# Milstone 5
+
+# React Signup Page
+
+This is a simple React-based signup page that allows users to register with their full name, email, password, and avatar image. The component also includes a password visibility toggle and validates the form before submission.
+
+## Features
+- User input fields for Full Name, Email, and Password.
+- Password visibility toggle for easy password entry.
+- Avatar upload functionality.
+- Form submission with `multipart/form-data` for file upload.
+- A link to redirect users to the login page if they already have an account.
+
+## Tech Stack
+- React
+- React Icons (`react-icons`)
+- Axios for API requests
+- Tailwind CSS for styling
+
+## File Structure
+- `SignupPage.js`: Main component for the signup form.
+- `style.js`: Custom styling for the page (ensure it is properly linked).
+
+## Setup
+
+1. **Install Dependencies**:
+   Ensure you have `react-icons` and `axios` installed in your project. If not, you can install them using npm:
+
+   ```bash
+   npm install react-icons axios
+
