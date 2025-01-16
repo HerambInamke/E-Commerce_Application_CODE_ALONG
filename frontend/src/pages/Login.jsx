@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-// import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Import useNavigate hook
+import axios from "axios";
 
 function LoginPage() {
   const [credentials, setCreds] = useState({
@@ -9,6 +10,9 @@ function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loginError, setLoginError] = useState(null);
+  
+  // Initialize useNavigate hook
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -37,7 +41,8 @@ function LoginPage() {
     try {
       const response = await axios.post("YOUR_API_ENDPOINT", credentials);
       console.log("Login Successful:", response.data);
-      // Redirect to dashboard or home page
+      // Redirect to dashboard or home page after successful login
+      navigate("/dashboard");  // Replace with actual dashboard or home route
     } catch (error) {
       console.error("Login Error:", error);
       if (error.response && error.response.status === 401) {
@@ -48,6 +53,11 @@ function LoginPage() {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleSignupRedirect = () => {
+    // Redirect to signup page when clicked
+    navigate("/signup"); // Replace with actual signup page route
   };
 
   return (
@@ -124,9 +134,12 @@ function LoginPage() {
         <div className="text-center mt-4">
           <p className="text-sm text-gray-600">
             Don’t have an account?{" "}
-            <a href="#" className="text-blue-600 hover:text-blue-500 font-semibold">
+            <button
+              onClick={handleSignupRedirect}
+              className="text-blue-600 hover:text-blue-500 font-semibold"
+            >
               Sign up
-            </a>
+            </button>
           </p>
         </div>
       </div>
