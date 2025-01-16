@@ -50,12 +50,13 @@ const SignupPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-600 via-gray-100 to-blue-400 px-6 py-12 flex flex-col justify-center sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-semibold text-gray-900">
-          Register as a new user
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-black drop-shadow-lg transform transition-all duration-500 ease-in-out hover:scale-105 hover:text-gray-800">
+          Register as a New User
         </h2>
+
       </div>
       <div className="mt-8 sm:w-full sm:max-w-md mx-auto">
-      <div className="bg-white py-8 px-4 shadow-lg sm:rounded-lg sm:px-10 hover:scale-105 hover:shadow-2xl transition-transform duration-300">
+        <div className="bg-white py-8 px-4 shadow-lg sm:rounded-lg sm:px-10 hover:scale-105 hover:shadow-2xl transition-transform duration-300">
 
 
           <form className="space-y-6" onSubmit={handleSubmit}>
