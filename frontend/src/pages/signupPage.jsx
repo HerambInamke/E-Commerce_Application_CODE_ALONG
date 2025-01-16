@@ -49,9 +49,9 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-gray-800 to-gray-900 px-6 py-12 flex flex-col justify-center sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-12 flex flex-col justify-center sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-bold text-white">
+        <h2 className="mt-6 text-center text-3xl font-bold text-gray-950">
           Register as a new user
         </h2>
       </div>
