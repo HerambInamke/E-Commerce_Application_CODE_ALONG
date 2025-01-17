@@ -11,14 +11,6 @@ const SignupPage = () => {
   const [visible, setVisible] = useState(false);
   const [avatar, setAvatar] = useState(null);
 
-  useEffect(() => {
-    return () => {
-      if (avatar) {
-        URL.revokeObjectURL(avatar);
-      }
-    };
-  }, [avatar]);
-
   const handleFileSubmit = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -36,15 +28,11 @@ const SignupPage = () => {
     newForm.append("email", email);
     newForm.append("password", password);
     
-    // Log FormData content to verify it's being populated correctly
-    for (let [key, value] of newForm.entries()) {
-      console.log(`${key}: ${value}`);
-    }
-
+ 
     const config = {
       headers: {
         "Content-type": "multipart/form-data",
-        Accept: "any",
+        "Accept": "any",
       },
     };
 
