@@ -133,7 +133,7 @@ function LoginPage() {
         </form>
         <div className="text-center mt-4">
           <p className="text-sm text-gray-600">
-            Don’t have an account?{" "}
+            Don't have an account?{" "}
             <button
               onClick={handleSignupRedirect}
               className="text-blue-600 hover:text-blue-500 font-semibold"
