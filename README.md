@@ -206,3 +206,37 @@ Stored user details (name, email, and hashed password) securely in the MongoDB d
 Testing:
 
 Verified the functionality by creating test users and checking the stored hashed passwords in the database.
+
+
+---
+
+## Milestone 6: Backend Web Development [V2] - Deploying Your API (Local and Production)
+
+### Overview
+This milestone focuses on creating a secure backend endpoint for the Signup page. The primary goals were to securely store user data, including encrypting passwords, and to ensure compliance with modern security standards.
+
+### Learning Goals 🎯
+By the end of this milestone, I achieved the following:
+- **Password Encryption:** Learned how to encrypt passwords using `bcrypt` before saving them.
+- **Secure Data Storage:** Successfully stored user data securely in the database.
+- **Understanding Security Best Practices:**
+  - Protecting user data from unauthorized access.
+  - Ensuring compliance with regulations like GDPR and PCI-DSS.
+  - Mitigating password theft risks through encryption.
+
+### Why Encrypt Passwords?
+- **Protect User Data:** Encrypting ensures that even if the database is compromised, passwords remain safe.
+- **Privacy:** Prevents visibility of user passwords to anyone, including developers.
+- **Compliance:** Adheres to security laws and regulations.
+- **Mitigation Against Theft:** Makes it significantly harder for attackers to steal or guess passwords.
+
+### Steps Completed in Milestone 6 📝
+1. **Encrypt the Password:**
+   - Implemented password hashing using `bcrypt` during the signup process.
+   - Stored hashed passwords in the database instead of plain text for enhanced security.
+
+2. **Store Complete User Data:**
+   - Ensured secure storage of user details such as name, email, and password.
+   - Maintained encrypted password storage to protect sensitive information.
+
+---
