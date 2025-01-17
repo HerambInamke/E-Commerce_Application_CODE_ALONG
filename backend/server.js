@@ -16,10 +16,10 @@ app.use(express.urlencoded({ extended: true }));  // For form-encoded data
 const upload = multer({ dest: 'uploads/' });
 
 // Connect to MongoDB
-const mongoURI = 'mongodb://localhost:27017/your_database_name'; // Replace with your MongoDB URI
+const mongoURI = 'mongodb+srv://heramb:inamke@cluster0.wycsh.mongodb.net/test?retryWrites=true&w=majority&tls=true'; // Replace with your MongoDB URI
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("Database connection successful"))
-  .catch((err) => console.error("Database connection error:", err));
+  .then(() => console.log("✅Database connection successful"))
+  .catch((err) => console.error("❌Database connection error:", err));
 
 // Define the route for user creation
 app.post('/api/v2/user/create-user', upload.single('file'), (req, res) => {

@@ -1,25 +1,23 @@
-if (process.env.NODE_ENV !== "PRODUCTION") {
-    require("dotenv").config({ path: "config/.env" });
-}
+const mongoose = require('mongoose');
 
-const mongoose = require("mongoose");
+const connectDatabase = () => {
+    if (!process.env.MONGODB_URI) {
+        console.error("MONGODB_URI is not defined in the environment variables.");
+        process.exit(1);
+    }
 
-const connectDatabase = async () => {
-    try {
-        if (!process.env.DB_URL) {
-            throw new Error("DB_URL is not defined in environment variables.");
-        }
-
-        const connection = await mongoose.connect(process.env.DB_URL, {
+    mongoose
+        .connect(process.env.MONGODB_URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
+        })
+        .then((data) => {
+            console.log(`✅Database connected successfully: ${data.connection.host}`);
+        })
+        .catch((err) => {
+            console.error("❌Database connection failed:", err.message);
+            process.exit(1);
         });
-
-        console.log("✅ Database connected successfully: ${connection.connection.host}");
-    } catch (error) {
-        console.error("❌ Database connection failed:", error.message);
-        process.exit(1); // Exit process with failure
-    }
 };
 
 module.exports = connectDatabase;

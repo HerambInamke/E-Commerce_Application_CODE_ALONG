@@ -1,40 +1,26 @@
 const ErrorHandler = require("../utils/ErrorHandler");
 
-module.exports = (err, req, res, next) => {
-    // Set default error properties
-    err.statusCode = err.statusCode || 500;
-    err.message = err.message || "Internal Server Error";
-
-    // Handle Mongoose CastError (invalid ObjectId)
-    if (err.name === "CastError") {
-        const message = `Resource not found. Invalid: ${err.path}`;
-        err = new ErrorHandler(message, 400);
+module.exports =(err,rew,res,next)=>{
+    err.statusCode=err.statusCode ||500;
+    err.message=err.message || "Internal Server Error";
+    if(err.name =="Cast Error"){
+        const message =`Resources not found with this id.. Invalid ${err.path}`;
+        err=new ErrorHandler(message,404);  
     }
-
-    // Handle Mongoose duplicate key error
-    if (err.code === 11000) {
-        const message = `Duplicate field value entered: ${Object.keys(err.keyValue).join(", ")}`;
-        err = new ErrorHandler(message, 400);
+    if (err.code===11000){
+        const message =`Duplicate key ${object.keys(err.keyValue)} Entered`;
+        err=new ErrorHandler(message,404);  
     }
-
-    // Handle JWT errors
-    if (err.name === "JsonWebTokenError") {
-        const message = `Invalid token provided.`;
-        err = new ErrorHandler(message, 400);
+    if (err.code=="JsonWebTokenError"){
+        const message =`Your URL is invalid please try again later`;
+        err=new ErrorHandler(message,404);  
     }
-
-    // Handle expired JWT errors
-    if (err.name === "TokenExpiredError") {
-        const message = `Token has expired. Please try again.`;
-        err = new ErrorHandler(message, 400);
+    if (err.code=="TokenExpiredErrror"){
+        const message =`Your URL is expired please try again later`;
+        err=new ErrorHandler(message,404);  
     }
-
-    // Log the error for debugging purposes
-    console.error(`❌ Error: ${err.message} | Status Code: ${err.statusCode}`);
-
-    // Send error response
-    res.status(err.statusCode).json({
-        success: false,
-        message: err.message,
+    res.status(statusCode).json({
+        success:false,
+        message:err.message,
     });
 };
