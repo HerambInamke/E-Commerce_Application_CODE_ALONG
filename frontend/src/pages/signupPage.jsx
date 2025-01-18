@@ -38,7 +38,7 @@ const SignupPage = () => {
 
     // Send the POST request to the backend
     axios
-      .post("http://localhost:8000/api/v2/user/create-user", newForm, config)
+      .post("http://localhost:8000/create-user", newForm, config)
       .then((res) => console.log("Response: ", res.data)) // Log successful response
       .catch((err) => console.log("Error: ", err)); // Log error
   };
