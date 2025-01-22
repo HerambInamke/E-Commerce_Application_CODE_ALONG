@@ -128,6 +128,89 @@ Throughout this milestone, I have followed best practices to ensure that the bac
 With these achievements, the foundation for a robust and scalable backend system is firmly in place. Moving forward, I am well-prepared to tackle more complex functionalities, optimize the existing codebase, and ensure the backend system aligns seamlessly with the project’s overall goals.
 
 ---
+# Milestone 4: Livebooks Backend Web Development
+
+by the end of this milestone:
+
+- **Create a User Model**: Think of it as the blueprint for storing user data like name, email, and password in the database.
+- **Create a User Controller**: This will help you manage user-related actions like adding new users and fetching their details.
+- **Enable and Configure Multer**: Want users to upload profile pictures? Multer’s got your back!
+- **Update the README File**: Don’t forget to document your progress here.
+
+---
+
+## What’s the Plan?
+
+### 1. What’s a Model?
+A model is like a blueprint. It defines how data is structured in your database. Imagine designing a house—you need a plan first, right?
+
+In MongoDB, we use schemas to define models. For example:
+
+```javascript
+const mongoose = require('mongoose');
+
+const userSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  password: String
+});
+
+const User = mongoose.model('User', userSchema);
+```
+
+### 2. What’s a Controller?
+Think of a controller as the manager of your app. It decides how to handle incoming requests and what responses to send back.
+
+For example, here’s a simple controller to create a new user:
+
+```javascript
+const createUser = (req, res) => {
+  const { name, email, password } = req.body;
+  const newUser = new User({ name, email, password });
+
+  newUser.save()
+    .then(() => res.status(201).send('User created successfully!'))
+    .catch(err => res.status(500).send(err));
+};
+
+module.exports = { createUser };
+```
+
+### 3. File Uploads with Multer
+Multer is a game-changer for handling file uploads. It lets users upload files, like profile pictures, to your server.
+
+Here’s how you set it up:
+
+```javascript
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  }
+});
+
+const upload = multer({ storage });
+module.exports = upload;
+```
+
+---
+
+## Steps to Rock Milestone 4 📝
+
+Here’s the plan:
+
+1. **User Model**: Build and implement the user schema with Mongoose.
+2. **User Controller**: Write functions to handle user operations (like creating and retrieving users).
+3. **Multer Magic**: Enable file uploads and set up storage for user files.
+4. **Document It**: Update this README to reflect your progress.
+
+---
+
+
 
 # Milstone 5
 
