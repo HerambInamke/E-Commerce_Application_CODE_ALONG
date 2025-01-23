@@ -12,10 +12,7 @@ const Login = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8000/api/v2/user/login-user', {
-        email,
-        password,
-      });
+      const response = await axios.post("http://localhost:8000/login-user", {email,password});
       console.log(response.data);
     } catch (error) {
       console.error("There was an error logging in..!!", error);

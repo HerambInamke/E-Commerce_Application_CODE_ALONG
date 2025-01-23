@@ -44,7 +44,7 @@ router.post("/create-user", upload.single("file"), catchAsyncErrors(async (req, 
     const user = await User.create({
         name,
         email,
-        password: hashedPassword,
+        password,
         avatar: {
             public_id:req.file?.filename || "",
             url: fileUrl,
@@ -79,7 +79,7 @@ router.post("/login-user",catchAsyncErrors(async(req, res, next)=>{
         return next(new ErrorHandler("Autehncation failed,Invalid password",401));
 
     }
-    res.status(200),json({
+    res.status(200).json({
         success:true,
         message:"Login successful",
         user:{
