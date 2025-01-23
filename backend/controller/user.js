@@ -55,4 +55,40 @@ console.log(user);
 res.status(201).json({ success:true,user});
 }));
 
+
+router.post("/login-user0",catchAsyncErrors(async(req, res, next)=>{
+    console.log("Logging...");
+    let{email,password} = req.body;
+    email = email
+    password = password;
+
+    if(!email || !password){
+        return next(new ErrorHandler("Please provide email and password",400));
+    }
+    const user_authen = await User.findOne({email}).select("+password");
+    console.log(user_authen);
+    if(!user_authen){
+        console.log("No user found")
+        return next(new ErrorHandler("Invalid email or password , No such E-mail found",401));
+    }
+    const isPasswordMatched = await bcrypt.compare(password, user_authen.password);
+    console.log("Password Matched Result: ",isPasswordMatched);
+    console.log("At Auth - password", password, "Hash: ", user_authen.password);
+    if(!isPasswordMatched){
+        console.log("Password not matched")
+        return next(new ErrorHandler("Autehncation failed,Invalid password",401));
+
+    }
+    res.status(200),json({
+        success:true,
+        message:"Login successful",
+        user:{
+            id:user_authen.id,
+            email:user_authen.email,
+            name:user_authen.name,
+        },
+    });
+
+}));
+
 module.exports=router;

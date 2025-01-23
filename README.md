@@ -323,3 +323,60 @@ By the end of this milestone, I achieved the following:
    - Maintained encrypted password storage to protect sensitive information.
 
 ---
+
+## **Milestone 7!** 🌟  
+
+Today, we’re diving into one of the most important parts of any backend system: user login. The goal here is to validate user credentials and securely verify passwords stored in your database. Let’s make it happen! 🚀  
+
+---
+
+## What I Learned? 🎯
+
+By the end of this milestone, you’ll:  
+- Understand how to validate user credentials during login.  
+- Learn how to compare encrypted passwords with user inputs securely.
+
+---
+
+## Why Do We Encrypt Passwords? 🛡️
+
+Here’s why password encryption is such a big deal:  
+1. **Protect User Data:** Even if the database is compromised, passwords remain safe.  
+2. **Privacy:** Passwords won’t be stored in plain text (a major security no-no).  
+3. **Compliance:** Meets standards like GDPR and PCI-DSS.  
+4. **Prevents Password Theft:** Hashed passwords are tough to crack, which keeps things secure.
+
+---
+
+## How Does Login Authentication Work? 🔑
+
+Here’s a quick breakdown of the login process:
+
+1. **User Enters Their Credentials:**  
+   - On the login page, users type their email/username and password.
+
+2. **Fetch User Data from the Database:**  
+   - The backend checks for the user in the database using the provided email/username.  
+   - If no user is found, the system responds: *"User does not exist."*
+
+3. **Compare Encrypted Passwords:**  
+   - The system processes the entered password using the same hashing algorithm (like bcrypt).  
+   - The hashed password is then compared with the one stored in the database.  
+   - If the hashes match, login succeeds. If not, the user gets an error.  
+
+**Fun fact:** Passwords are not "decrypted" because hashing is a one-way process. Instead, hashes are matched!
+
+---
+
+## Steps for Milestone 7 📝
+
+1. **Build the Login Endpoint:**  
+   - Accept user credentials (email/username and password).  
+   - Retrieve the user’s data from the database.  
+
+2. **Validate the Password:**  
+   - Use bcrypt (or a similar library) to hash the input password.  
+   - Compare the hashed password to the stored one.  
+   - Authenticate the user if they match.  
+
+---
