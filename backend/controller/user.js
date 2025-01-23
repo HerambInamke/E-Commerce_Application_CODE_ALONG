@@ -56,7 +56,7 @@ res.status(201).json({ success:true,user});
 }));
 
 
-router.post("/login-user0",catchAsyncErrors(async(req, res, next)=>{
+router.post("/login-user",catchAsyncErrors(async(req, res, next)=>{
     console.log("Logging...");
     let{email,password} = req.body;
     email = email
