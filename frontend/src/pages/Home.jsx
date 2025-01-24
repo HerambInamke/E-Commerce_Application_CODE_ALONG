@@ -1,5 +1,5 @@
 import Product from "../components/products";
-import product from "../components/products";
+// import product from "../components/products";
 
 const ProductDetails = [
     {
