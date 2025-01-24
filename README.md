@@ -380,3 +380,32 @@ Here’s a quick breakdown of the login process:
    - Authenticate the user if they match.  
 
 ---
+
+## * Milestone 8 *
+In **Milestone 8**, we’ll build a **reusable card component** and design a **homepage** to display product cards.
+
+---
+
+## 🎯 Goals
+- Create reusable **card components**.
+- Dynamically display cards on the homepage.
+
+---
+
+## Why Card Components?
+- **Show Products Clearly**: Neat and appealing display.  
+- **Reusable Design**: Use across pages.  
+- **Better UX**: Simplifies browsing.  
+- **Organized Layout**: Clean homepage structure.
+
+---
+
+## Steps
+
+### 1. Build the Card Component
+- Add props for product **name**, **image**, and **price**.
+
+### 2. Design Homepage Layout
+- Use **grid** or **flexbox** for a neat arrangement of cards.
+
+---
