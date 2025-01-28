@@ -409,3 +409,25 @@ In **Milestone 8**, we’ll build a **reusable card component** and design a **h
 - Use **grid** or **flexbox** for a neat arrangement of cards.
 
 ---
+# 📦 Product Form Creation (Milestone 9)
+# Milestone **9**
+
+---
+
+## 🤔 Why Build a Product Form?  
+- The product form is crucial for collecting detailed information about each product.  
+- These details will be stored in the database and displayed on the product homepage we created in the previous milestone.  
+- This task forms the foundation of your product management feature.  
+
+---
+
+## 📝Complete Milestone 9  
+
+1. **Create the Form for Products**  
+   - Design a frontend form that collects all the necessary product details (e.g., name, price, description).  
+
+2. **Handle Multiple Images**  
+   - Add functionality to allow users to upload multiple product images.  
+
+---
+
