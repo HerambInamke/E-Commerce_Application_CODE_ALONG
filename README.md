@@ -430,4 +430,35 @@ In **Milestone 8**, we’ll build a **reusable card component** and design a **h
    - Add functionality to allow users to upload multiple product images.  
 
 ---
+# 🛠️ Mongoose Schema and Endpoint Creation (Milestone 10)
 
+# **Milestone 10,** 
+
+---
+
+## 📚 What I have Done:  
+
+### **1. Product Schema**  
+- Define the structure for your product data, including fields like:  
+  - **Name**: The name of the product.  
+  - **Description**: A short overview of the product.  
+  - **Price**: The product price.  
+  - **Image URLs**: URLs for product images.  
+- Add **validations** for each field, such as:  
+  - Making required fields mandatory.  
+  - Ensuring correct data types (e.g., strings, numbers).  
+
+### **2. Endpoint Creation**  
+- Build a `POST` endpoint that will:  
+  1. Accept product data from the frontend.  
+  2. Validate the incoming data using the schema.  
+  3. Save the valid data into your MongoDB database.  
+
+---
+
+## 🔒 Why Validation Matters  
+
+- **Data Integrity**: Ensures only clean, accurate, and valid data gets stored in the database.  
+- **Error Prevention**: Helps catch mistakes early, improving application reliability.  
+
+---
