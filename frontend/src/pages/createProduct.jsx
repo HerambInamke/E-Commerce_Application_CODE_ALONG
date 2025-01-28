@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import { AiOutlinePlusCircle } from "react-icons/ai";
 
 const CreateProduct = () => {
@@ -17,24 +17,23 @@ const CreateProduct = () => {
         { title: "Fashion" },
         { title: "Books" },
         { title: "Home Appliances" }
-    ]
+    ];
 
     const handleImagesChange = (e) => {
         const files = Array.from(e.target.files);
-        setImage((previewImages) => previewImages.concat(files));
-        const imagePreviews = files.map((file) => URL.createObjectURL(file));
-        setPreviewImages((prevPreviews) => prevPreviews.concat(imagePreviews));
-    }
+        setImage((prevImages) => prevImages.concat(files)); // Update the original file array
+        const imagePreviews = files.map((file) => URL.createObjectURL(file)); // Generate URLs
+        setPreviewImages((prevPreviews) => prevPreviews.concat(imagePreviews)); // Store preview URLs
+    };
 
     useEffect(() => {
         return () => {
-            previewImages.forEach((e) => URL.revokeObjectURL(e))
-
-        }
-    }, [previewImages])
+            previewImages.forEach((url) => URL.revokeObjectURL(url)); // Clean up URLs
+        };
+    }, [previewImages]);
 
     const handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         const productData = {
             name: name,
             description: description,
@@ -44,21 +43,20 @@ const CreateProduct = () => {
             stock: stock,
             email: email,
             image: image,
-        }
+        };
         console.log("Product data", productData);
-        alert("Product created successfully")
+        alert("Product created successfully");
 
-        setImage([])
-        setPreviewImages([])
-        setName('')
-        setDescription('')
-        setCategory('')
-        setTags('')
-        setPrice('')
-        setStock('')
-        setEmail('')
-
-    }
+        setImage([]);
+        setPreviewImages([]);
+        setName('');
+        setDescription('');
+        setCategory('');
+        setTags('');
+        setPrice('');
+        setStock('');
+        setEmail('');
+    };
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-indigo-100 via-indigo-200 to-indigo-300">
@@ -84,7 +82,7 @@ const CreateProduct = () => {
                             required
                         />
                     </div>
-    
+
                     {/* Name Input */}
                     <div className="space-y-2 group">
                         <label className="block text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors duration-300">
@@ -102,7 +100,7 @@ const CreateProduct = () => {
                             required
                         />
                     </div>
-    
+
                     {/* Description */}
                     <div className="space-y-2 group">
                         <label className="block text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors duration-300">
@@ -120,7 +118,7 @@ const CreateProduct = () => {
                             required
                         />
                     </div>
-    
+
                     {/* Category */}
                     <div className="space-y-2 group">
                         <label className="block text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors duration-300">
@@ -145,7 +143,7 @@ const CreateProduct = () => {
                             ))}
                         </select>
                     </div>
-    
+
                     {/* Tags */}
                     <div className="space-y-2 group">
                         <label className="block text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors duration-300">
@@ -163,7 +161,7 @@ const CreateProduct = () => {
                             required
                         />
                     </div>
-    
+
                     {/* Price and Stock */}
                     <div className="grid grid-cols-2 gap-6">
                         <div className="space-y-2 group">
@@ -199,7 +197,7 @@ const CreateProduct = () => {
                             />
                         </div>
                     </div>
-    
+
                     {/* Upload Images */}
                     <div className="space-y-2 group">
                         <label className="block text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors duration-300">
@@ -228,7 +226,22 @@ const CreateProduct = () => {
                             </span>
                         </label>
                     </div>
-    
+
+                    {/* Image Previews */}
+                    {previewImages.length > 0 && (
+                        <div className="grid grid-cols-3 gap-4 mt-4">
+                            {previewImages.map((src, index) => (
+                                <div key={index} className="relative">
+                                    <img
+                                        src={src}
+                                        alt={`Preview ${index + 1}`}
+                                        className="w-full h-24 object-cover rounded-lg shadow-md"
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
                     <button
                         type="submit"
                         className="w-full p-4 mt-8 text-white text-lg font-semibold
@@ -244,7 +257,6 @@ const CreateProduct = () => {
             </div>
         </div>
     );
-    
 };
 
 export default CreateProduct;
