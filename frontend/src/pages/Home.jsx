@@ -76,16 +76,20 @@ const ProductDetails = [
     },
 ];
 
-
-export default function Home(){
+export default function Home() {
     return (
-        <div className="w-full  min-h-screen bg-neutral-800 ">
-            <div className="grid grid-cols-6 gap-4 p-4">    
-                {
-                    ProductDetails.map((product, index) => <Product key={index}{...product}/> )
-                }
+        <div className="w-full min-h-screen bg-gray-100 text-gray-800">
+            <div className="max-w-7xl mx-auto p-8">
+                <h1 className="text-4xl font-extrabold mb-8 text-center text-gray-900">Our Exclusive Collection</h1>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-8">
+                    {ProductDetails.map((product, index) => (
+                        <Product key={index} {...product} />
+                    ))}
+                </div>
             </div>
         </div>
-
     );
 }
+
+
+
