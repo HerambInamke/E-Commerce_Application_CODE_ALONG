@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import './App.css'
 import { Home,Login } from './Routes/route.js';
-import {SignupPage } from './Routes/route.js';
+import {SignupPage,CreateProduct } from './Routes/route.js';
 
 
 const App = () => {
@@ -13,6 +13,7 @@ const App = () => {
         <Route path ='/' element={<Home/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path='/product' element={<CreateProduct />} />
       </Routes>
     </BrowserRouter>
   );
