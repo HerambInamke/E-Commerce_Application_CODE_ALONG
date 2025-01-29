@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import axios from "axios";
 
 const CreateProduct = () => {
     const [image, setImage] = useState([]);
@@ -32,31 +33,34 @@ const CreateProduct = () => {
         };
     }, [previewImages]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
-        const productData = {
-            name: name,
-            description: description,
-            category: category,
-            tags: tags,
-            price: price,
-            stock: stock,
-            email: email,
-            image: image,
-        };
-        console.log("Product data", productData);
-        alert("Product created successfully");
+        
+        // Create a new FormData instance and append data
+        const formData = new FormData();
 
-        setImage([]);
-        setPreviewImages([]);
-        setName('');
-        setDescription('');
-        setCategory('');
-        setTags('');
-        setPrice('');
-        setStock('');
-        setEmail('');
-    };
+        formData.append("name", name);
+        formData.append("description", description);
+        formData.append("category", category);
+        formData.append("tags", tags);
+        formData.append("price", price);
+        formData.append("stock", stock);
+        formData.append("email", email);
+        image.forEach((image) => FormData.append("image", image)); // Add all the images to the FormData instance
+     
+        const config = {
+          headers: {
+            "Content-type": "multipart/form-data",
+            "Accept": "any",
+          },
+        };
+    
+        // Send the POST request to the backend
+        axios
+          .post("http://localhost:8000/product/create-product", formdata, config)
+          .then((res) => console.log("Response: ", res.data)) // Log successful response
+          .catch((err) => console.log("Error: ", err)); // Log error
+      };
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-indigo-100 via-indigo-200 to-indigo-300">
