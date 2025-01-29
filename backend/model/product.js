@@ -31,7 +31,9 @@ const productSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: [true, "Please enter the product's owner's email!"]
+        required: [true, "Please enter the product owner's email!"],
+        match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Please enter a valid email address!"]
+
     },
     createdAt: {
         type: Date,
