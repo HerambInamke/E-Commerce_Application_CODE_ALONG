@@ -9,9 +9,9 @@ const CreateProduct = () => {
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
     const [tags, setTags] = useState('');
-    const [price, setPrice] = useState("");
-    const [stock, setStock] = useState("");
-    const [email, setEmail] = useState("");
+    const [price, setPrice] = useState(0);
+    const [stock, setStock] = useState(0);
+    const [email, setEmail] = useState('');
 
     const categoriesData = [
         { title: "Electronics" },
@@ -22,23 +22,27 @@ const CreateProduct = () => {
 
     const handleImagesChange = (e) => {
         const files = Array.from(e.target.files);
-        setImage((prevImages) => prevImages.concat(files)); // Update the original file array
-        const imagePreviews = files.map((file) => URL.createObjectURL(file)); // Generate URLs
-        setPreviewImages((prevPreviews) => prevPreviews.concat(imagePreviews)); // Store preview URLs
+        setImage((prevImages) => prevImages.concat(files));
+
+        const imagePreviews = files.map((file) => URL.createObjectURL(file));
+
+        setPreviewImages((prevPreviews) => {
+            prevPreviews.forEach((url) => URL.revokeObjectURL(url)); // Cleanup old previews
+            return imagePreviews;
+        });
     };
 
     useEffect(() => {
         return () => {
-            previewImages.forEach((url) => URL.revokeObjectURL(url)); // Clean up URLs
+            previewImages.forEach((url) => URL.revokeObjectURL(url));
         };
-    }, [previewImages]);
+    }, []);
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        
+    
         // Create a new FormData instance and append data
         const formData = new FormData();
-
         formData.append("name", name);
         formData.append("description", description);
         formData.append("category", category);
@@ -46,22 +50,26 @@ const CreateProduct = () => {
         formData.append("price", price);
         formData.append("stock", stock);
         formData.append("email", email);
-        image.forEach((image) => FormData.append("image", image)); // Add all the images to the FormData instance
-     
+        
+        // Append images
+        image.forEach((img) => formData.append("image", img));
+    
         const config = {
-          headers: {
-            "Content-type": "multipart/form-data",
-            "Accept": "any",
-          },
+            headers: {
+                "Content-Type": "multipart/form-data",
+                "Accept": "any",
+            },
         };
     
-        // Send the POST request to the backend
-        axios
-          .post("http://localhost:8000/product/create-product", formdata, config)
-          .then((res) => console.log("Response: ", res.data)) // Log successful response
-          .catch((err) => console.log("Error: ", err)); // Log error
-      };
-
+        try {
+            // Update the URL to match the backend route
+            const res = await axios.post("http://localhost:8000/api/v2/product/create-product", formData, config);
+            console.log("Response:", res.data);
+        } catch (err) {
+            console.error("Error:", err);
+        }
+    };
+    
     return (
         <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-indigo-100 via-indigo-200 to-indigo-300">
             <div className="w-[90%] max-w-[700px] bg-white shadow-md rounded-3xl p-10 mx-auto my-8 transform transition-all duration-500 hover:shadow-lg hover:scale-[1.02]">

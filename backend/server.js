@@ -6,9 +6,13 @@ const multer = require('multer');
 const mongoose = require('mongoose'); // Add Mongoose for MongoDB connection
 const app = express();
 const port = 8000;
-
-// Enable CORS if needed (if frontend and backend are on different ports)
+const product = require("./controller/product");
+const user = require("./controller/user");
 app.use(cors());
+
+app.use("/api/v2/user", user);
+app.use("/api/v2/product", product);
+// Enable CORS if needed (if frontend and backend are on different ports)
 
 // Body parsing middleware for form data
 app.use(express.json());  // For JSON data
