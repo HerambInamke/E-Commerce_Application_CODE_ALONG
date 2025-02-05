@@ -7,10 +7,13 @@ const app = express();
 const port = 8000;
 const product = require("./controller/product");
 const user = require("./controller/user");
+const path =require('path');
 
 app.use(cors());
 app.use("/api/v2/user", user);
 app.use("/api/v2/product", product);
+app.use('/products',express.static(path.join(__dirname, 'products')));
+
 // Enable CORS if needed (if frontend and backend are on different ports)
 // Body parsing middleware for form data
 app.use(express.json());  // For JSON data

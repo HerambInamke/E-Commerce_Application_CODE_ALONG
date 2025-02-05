@@ -2,7 +2,7 @@ const express = require('express');
 const Product = require('../model/product');
 const User = require('../model/user');
 const router = express.Router();
-const { pupload } = require('../middleware/multer');
+const { pupload } = require('../multer');
 
 // Create a new product
 const validateProductsData = (data) => {
@@ -21,8 +21,9 @@ router.post('/create-product', pupload.array('image', 10), async (req, res, next
     const { name, description, category, tags, price, stock, email } = req.body;
 
     // Store image paths
-    const images = req.files.map((file) => file.path);
-
+    const image = req.files.map((file) => {
+        return `/products/${file.filename}`;
+    });
     // Assuming `validateProduct` is a function that checks required fields
     const validationErrors = validateProductsData({ name, description, category, tags,price, stock, email });   
 
@@ -30,7 +31,7 @@ router.post('/create-product', pupload.array('image', 10), async (req, res, next
         return res.status(400).json({ errors: validationErrors });
     }
 
-    if (images.length === 0) {
+    if (image.length === 0) {
         return res.status(400).json({ errors: ["Please upload product images!"] });
     }
 
@@ -50,7 +51,7 @@ router.post('/create-product', pupload.array('image', 10), async (req, res, next
             price, 
             stock, 
             email, 
-            images, 
+            image, 
             user: user._id 
         });
 
@@ -64,6 +65,24 @@ router.post('/create-product', pupload.array('image', 10), async (req, res, next
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Server error!" });
+    }
+});
+
+router.get('/get-products', async (req, res, next) => {
+    try {
+        const products = await Product.find();
+        const productsWithFullImageURL = products.map((product) => {
+            if(product.image && product.image.length > 0) {
+                product.image = product.image.map((imagePath) => {
+                    return imagePath;
+                });
+            }
+            return product;
+        });
+        res.status(200).json({ products: productsWithFullImageURL });
+    }catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Server error!,could not fetch the products" });
     }
 });
 

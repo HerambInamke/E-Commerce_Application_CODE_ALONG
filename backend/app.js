@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const errorHandler = require("./middleware/error");
 app.use(errorHandler);
+const path = require("paths");
 
 // Built-in middleware for parsing JSON
 app.use(express.json());
@@ -12,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 // Use CORS middleware
 app.use(cors());
 
-
+//app.use('/product',express.static(path.join(__dirname, 'products')));
 
 if (process.env.NODE_ENV !== "PRODUCTION") {
   require("dotenv").config({

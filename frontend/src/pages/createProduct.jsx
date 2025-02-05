@@ -26,10 +26,8 @@ const CreateProduct = () => {
 
         const imagePreviews = files.map((file) => URL.createObjectURL(file));
 
-        setPreviewImages((prevPreviews) => {
-            prevPreviews.forEach((url) => URL.revokeObjectURL(url)); // Cleanup old previews
-            return imagePreviews;
-        });
+        setPreviewImages((prevPreviews) => prevPreviews.concat(imagePreviews));
+    
     };
 
     useEffect(() => {
@@ -242,14 +240,15 @@ const CreateProduct = () => {
                     {/* Image Previews */}
                     {previewImages.length > 0 && (
                         <div className="grid grid-cols-3 gap-4 mt-4">
-                            {previewImages.map((src, index) => (
-                                <div key={index} className="relative">
+                            {previewImages.map((img, index) => (
+                               
                                     <img
-                                        src={src}
-                                        alt={`Preview ${index + 1}`}
+                                        src={img}
+                                        key={index}
+                                        alt="Preview"
                                         className="w-full h-24 object-cover rounded-lg shadow-md"
                                     />
-                                </div>
+                            
                             ))}
                         </div>
                     )}
