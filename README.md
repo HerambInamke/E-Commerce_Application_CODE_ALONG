@@ -462,3 +462,90 @@ In **Milestone 8**, we’ll build a **reusable card component** and design a **h
 - **Error Prevention**: Helps catch mistakes early, improving application reliability.  
 
 ---
+# Milestone 11: Fetch and Display Products 📝
+
+## Overview
+In this milestone, we will implement an API endpoint to send all product data to the frontend. On the frontend, we will fetch this data and dynamically render it using the Product Card component.
+
+## Steps to Complete Milestone 11
+
+### Backend (API Endpoint)
+1. Create a new API route in your backend server to fetch all product data.
+2. Query the database to retrieve all products.
+3. Send the product data as a JSON response.
+
+#### Example (Node.js with Express & MongoDB)
+```javascript
+app.get('/api/products', async (req, res) => {
+    try {
+        const products = await Product.find();
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching products" });
+    }
+});
+```
+
+### Frontend (Fetching Data & Displaying Products)
+
+1. Write a function to fetch product data from the API.
+2. Store the fetched data in a state variable.
+3. Pass the data to the Product Card component and render it dynamically.
+
+#### Example (React)
+```javascript
+import { useEffect, useState } from 'react';
+import ProductCard from './ProductCard';
+
+const ProductList = () => {
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await fetch('/api/products');
+                const data = await response.json();
+                setProducts(data);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        };
+
+        fetchProducts();
+    }, []);
+
+    return (
+        <div>
+            {products.map(product => (
+                <ProductCard key={product._id} product={product} />
+            ))}
+        </div>
+    );
+};
+
+export default ProductList;
+```
+
+### Product Card Component
+Ensure that the `ProductCard` component correctly receives and displays the product data.
+
+```javascript
+const ProductCard = ({ product }) => {
+    return (
+        <div className="product-card">
+            <h2>{product.name}</h2>
+            <p>{product.description}</p>
+            <p>Price: ${product.price}</p>
+        </div>
+    );
+};
+
+export default ProductCard;
+```
+
+## Summary
+✅ Created an API endpoint to fetch all products.
+✅ Implemented a function to retrieve product data in the frontend.
+✅ Displayed the products dynamically using the `ProductCard` component.
+
+Milestone 11 complete! 🎉
