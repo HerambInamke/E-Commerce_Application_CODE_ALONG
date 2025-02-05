@@ -16,22 +16,44 @@ export default function Product({ name, image, description, price }) {
     const currentImage = image.length > 0 ? image[currentIndex] : null;
     console.log(currentImage);
     return (
-        <div className="bg-gradient-to-b from-blue-100 to-blue-50 p-6 rounded-2xl shadow-lg flex flex-col justify-between transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
-            <div className="relative w-full overflow-hidden rounded-xl">
+        <div className="group bg-gradient-to-b from-blue-50 to-white p-6 rounded-2xl shadow-lg flex flex-col gap-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+            {/* Image Container */}
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-gray-100">
                 <img
                     src={`http://localhost:8000${currentImage}`}
                     alt={name}
-                    className="w-full h-56 object-cover rounded-xl transition-transform duration-300 hover:scale-110"
+                    className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
                 />
-                <div className="absolute inset-0 bg-blue-200 bg-opacity-20 hover:bg-opacity-10 transition-opacity duration-300 rounded-xl"></div>
+                <div 
+                    className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    aria-hidden="true"
+                />
             </div>
-            <div className="mt-6">
-                <h2 className="text-xl font-bold text-blue-900">{name}</h2>
-                <p className="text-sm text-blue-700 opacity-80 line-clamp-2">{description}</p>
+    
+            {/* Content Container */}
+            <div className="flex flex-1 flex-col gap-4">
+                <div>
+                    <h2 className="text-xl font-bold text-gray-900 line-clamp-1 group-hover:text-blue-600 transition-colors">
+                        {name}
+                    </h2>
+                    <p className="mt-2 text-sm text-gray-600 line-clamp-2">
+                        {description}
+                    </p>
+                </div>
+    
+                {/* Price */}
+                <div className="text-lg font-bold text-gray-900">
+                    ${price.toFixed(2)}
+                </div>
             </div>
-            <div className="text-lg font-bold my-4 text-blue-800">${price.toFixed(2)}</div>
-            <button className="w-full text-white px-4 py-2 rounded-lg bg-blue-600 transition-transform duration-300 hover:scale-105 hover:bg-blue-700 shadow-md">
-                More Info!
+    
+            {/* Button */}
+            <button 
+                className="w-full rounded-lg bg-blue-600 px-4 py-3 text-sm font-medium text-white transition-all duration-300 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                onClick={() => {/* Add your click handler */}}
+            >
+                More Info
             </button>
         </div>
     );
