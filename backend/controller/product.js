@@ -87,4 +87,16 @@ router.get('/get-products', async (req, res, next) => {
 });
 
 
+router.get('/my-products', async (req, res, next) => {
+    const {email} = req.query;
+    try {
+        const products = await Product.find({ email });
+        res.status(200).json({ products: products });
+    }catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Server error!,could not fetch the products" });
+    }
+}
+);
+
 module.exports = router;

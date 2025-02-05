@@ -549,3 +549,104 @@ export default ProductCard;
 ✅ Displayed the products dynamically using the `ProductCard` component.
 
 Milestone 11 complete! 🎉
+
+---
+
+# Milestone 12: My Products Page 🌟
+
+## Milestone 12! 🌟
+
+In this milestone, we will create a "My Products" page that displays all the products added by a specific user based on their email. We will write an API endpoint that fetches products associated with the logged-in user's email, stored in MongoDB.
+
+--
+
+## Steps for Milestone 12 📝
+
+### Backend (Filtering Products by User Email)
+1. Create a new API route in the backend to fetch products filtered by the user's email.
+2. Query MongoDB to retrieve products that match the logged-in user's email.
+3. Send the filtered product data as a JSON response.
+
+#### Example (Node.js with Express & MongoDB)
+```javascript
+app.get('/api/my-products', async (req, res) => {
+    try {
+        const { email } = req.query;
+        if (!email) {
+            return res.status(400).json({ message: "Email is required" });
+        }
+        const products = await Product.find({ userEmail: email });
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching products" });
+    }
+});
+```
+
+### Frontend (Fetching and Displaying User-Specific Products)
+
+1. Write a function to fetch product data for the logged-in user.
+2. Store the fetched data in a state variable.
+3. Pass the data to the Product Card component and render it dynamically.
+
+#### Example (React)
+```javascript
+import { useEffect, useState } from 'react';
+import ProductCard from './ProductCard';
+
+const MyProducts = ({ userEmail }) => {
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        const fetchMyProducts = async () => {
+            try {
+                const response = await fetch(`/api/my-products?email=${userEmail}`);
+                const data = await response.json();
+                setProducts(data);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        };
+
+        if (userEmail) {
+            fetchMyProducts();
+        }
+    }, [userEmail]);
+
+    return (
+        <div>
+            {products.map(product => (
+                <ProductCard key={product._id} product={product} />
+            ))}
+        </div>
+    );
+};
+
+export default MyProducts;
+```
+
+### Product Card Component
+Ensure that the `ProductCard` component correctly receives and displays the product data.
+
+```javascript
+const ProductCard = ({ product }) => {
+    return (
+        <div className="product-card">
+            <h2>{product.name}</h2>
+            <p>{product.description}</p>
+            <p>Price: ${product.price}</p>
+        </div>
+    );
+};
+
+export default ProductCard;
+```
+
+## Summary
+✅ Created an API endpoint to fetch user-specific products.
+✅ Implemented a function to retrieve filtered product data in the frontend.
+✅ Displayed the products dynamically using the `ProductCard` component.
+
+This lesson helps in understanding how to filter data with specific constraints and send it to the client efficiently. 🎯
+
+Milestone 12 complete! 🎉
