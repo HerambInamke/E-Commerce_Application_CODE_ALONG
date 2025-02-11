@@ -649,4 +649,45 @@ export default ProductCard;
 
 This lesson helps in understanding how to filter data with specific constraints and send it to the client efficiently. 🎯
 
-Milestone 12 complete! 🎉
+Milestone 12 complete! 
+
+---
+
+
+# Milestone 13 - Edit Uploaded Products 🌟
+
+Today, we will add functionality to edit the uploaded products. We will add an edit button and then write a backend endpoint to update the new details inside the MongoDB database.
+
+## Learning Goals 🎯
+
+- How to write an endpoint that updates existing data in MongoDB.  
+- How to auto-fill the form with previous data and provide an option to edit.
+
+## Steps for Milestone 13 📝
+
+1. Write an endpoint that receives new data and updates the existing data inside MongoDB.  
+2. In the frontend, add an edit button to the product card.  
+3. When the edit button is clicked, send the existing data to the form, auto-fill it, and allow editing.  
+4. Save the updated data back to the database. 
+
+
+---
+
+# Milestone 14 - Delete Products from MongoDB 🗑️
+
+In this milestone, we will implement functionality to delete a product using its specific ID from MongoDB.
+
+## Learning Goals 🎯
+
+
+- How to write an endpoint that deletes a product using its ID from MongoDB.
+
+## Steps for Milestone 14 📝
+
+1. Write an endpoint that deletes data from MongoDB using the product ID.  
+2. In the frontend, add a delete button to the product card.  
+3. When the delete button is clicked, send the product ID to the server endpoint.  
+
+**Note:** This lesson will help you understand the delete operation in detail.  
+
+

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Product from '../components/Products';
+import MyProduct from '../components/myProducts';
 
 export default function MyProducts() {
     const [products, setProducts] = useState([]);
@@ -39,7 +39,7 @@ export default function MyProducts() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {products.length > 0 ? (
                     products.map((product) => (
-                        <Product key={product._id || product.id} {...product} />
+                        <MyProduct key={product._id || product.id} {...product} />
                     ))
                 ) : (
                     !loading && !error && (

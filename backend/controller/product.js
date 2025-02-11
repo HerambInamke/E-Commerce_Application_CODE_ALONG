@@ -99,4 +99,78 @@ router.get('/my-products', async (req, res, next) => {
 }
 );
 
+router.get('/product/:id', async (req, res, next) => {
+    const { id } = req.params;
+    try {
+        const product = await Product.findById(id);
+        if (!product) {
+            return res.status(404).json({ error: "Product not found!" });
+        }
+        res.status(200).json({ product });
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Server error!,could not fetch the product" });
+    }
+});
+
+router.put('/update-product/:id', pupload.array('image', 10), async (req, res) => {
+    const { id } = req.params;
+    const { name, description, category, tags, price, stock, email } = req.body;
+
+    try {
+        const existingProduct = await Product.findById(id);
+        if (!existingProduct) {
+            return res.status(404).json({ error: "Product not found!" });
+        }
+
+        let updatedImages = existingProduct.images;
+        if (req.files && req.files.length > 0) {
+            updatedImages = req.files.map((file) => `/products/${path.basename(file.filename)}`);
+        }
+
+        const validationErrors = validateInputs({ name, description, category, tags, price, stock, email });
+        if (validationErrors.length > 0) {
+            return res.status(400).json({ errors: validationErrors });
+        }
+
+        // Update product fields
+        existingProduct.name = name;
+        existingProduct.description = description;
+        existingProduct.category = category;
+        existingProduct.tags = tags;
+        existingProduct.price = price;
+        existingProduct.stock = stock;
+        existingProduct.email = email;
+        existingProduct.images = updatedImages;
+
+        await existingProduct.save();
+
+        res.status(200).json({
+            message: "✅ Product updated successfully!",
+            product: existingProduct,
+        });
+
+    } catch (error) {
+        console.error("Server error!", error);
+        res.status(500).json({ error: "Server error!" });
+    }
+});
+router.delete('/delete-product/:id', async (req, res, next) => {
+    const { id } = req.params;
+    try{
+        const existingProduct= await Product.findById(id);
+        if(!existingProduct) {
+            return res.status(404).json({ error: "Product not found!" });
+            }
+            await existingProduct.deleteOne();
+            res.status(200).json({
+                message: "✅✅Product deleted successfully!",
+            });
+        }catch(error){
+            console.error('Server error!',error);
+            res.status(500).json({ error: "Server error!" });
+            }
+        });
+
 module.exports = router;

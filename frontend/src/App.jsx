@@ -2,9 +2,8 @@
 import React from 'react';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import './App.css'
-import { Home,Login } from './Routes/route.js';
-import {SignupPage,CreateProduct,} from './Routes/route.js';
-import MyProducts from './pages/myProduct.jsx';
+import { Home,Login,SignupPage,CreateProduct,MyProducts } from './Routes/route.js';
+
 
 
 const App = () => {
@@ -14,8 +13,10 @@ const App = () => {
         <Route path ='/' element={<Home/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path='/create-product' element={<CreateProduct/>} />
+        <Route path='/myproducts' element={<MyProducts/>} />
+        <Route path='/create-product/:id' element={<CreateProduct />} />
         <Route path='/product' element={<CreateProduct />} />
-        <Route path='/my-products' element={<MyProducts />} />
       </Routes>
     </BrowserRouter>
   );

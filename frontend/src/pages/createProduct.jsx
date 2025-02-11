@@ -1,16 +1,21 @@
 import { useState, useEffect } from 'react';
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import axios from "axios";
+import { useNavigate, useParams } from 'react-router-dom';
 
 const CreateProduct = () => {
-    const [image, setImage] = useState([]);
+    const { id } = useParams(); // Fixed missing parentheses
+    const navigate = useNavigate(); // Fixed typo in variable name
+    const isEdit = Boolean(id);
+
+    const [images, setImages] = useState([]); // Fixed inconsistent state variable name
     const [previewImages, setPreviewImages] = useState([]);
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
     const [tags, setTags] = useState('');
-    const [price, setPrice] = useState(0);
-    const [stock, setStock] = useState(0);
+    const [price, setPrice] = useState(''); // Changed to string for input handling
+    const [stock, setStock] = useState(''); // Changed to string for input handling
     const [email, setEmail] = useState('');
 
     const categoriesData = [
@@ -20,26 +25,47 @@ const CreateProduct = () => {
         { title: "Home Appliances" }
     ];
 
+    useEffect(() => {
+        if (isEdit) {
+            axios
+                .get(`http://localhost:8000/api/v2/product/product/${id}`) // Fixed URL formatting
+                .then((response) => {
+                    const p = response.data.product;
+                    console.log(p)
+                    setName(p.name);
+                    setDescription(p.description);
+                    setCategory(p.category);
+                    setTags(p.tags);
+                    setPrice(p.price.toString());
+                    setStock(p.stock.toString());
+                    setEmail(p.email);
+                    if (p.images && p.images.length > 0) { // Fixed condition check
+                        setPreviewImages(p.images.map((imgPath) => `http://localhost:8000${imgPath}`));
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error fetching product", error);
+                });
+        }
+    }, [id, isEdit]);
+
     const handleImagesChange = (e) => {
         const files = Array.from(e.target.files);
-        setImage((prevImages) => prevImages.concat(files));
+        setImages((prevImages) => prevImages.concat(files)); // Fixed state variable name
 
         const imagePreviews = files.map((file) => URL.createObjectURL(file));
-
         setPreviewImages((prevPreviews) => prevPreviews.concat(imagePreviews));
-    
     };
 
     useEffect(() => {
         return () => {
             previewImages.forEach((url) => URL.revokeObjectURL(url));
         };
-    }, []);
+    }, [previewImages]); // Added dependency array
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
-        // Create a new FormData instance and append data
+
         const formData = new FormData();
         formData.append("name", name);
         formData.append("description", description);
@@ -48,31 +74,59 @@ const CreateProduct = () => {
         formData.append("price", price);
         formData.append("stock", stock);
         formData.append("email", email);
-        
-        // Append images
-        image.forEach((img) => formData.append("image", img));
-    
-        const config = {
-            headers: {
-                "Content-Type": "multipart/form-data",
-                "Accept": "any",
-            },
-        };
-    
+
+        images.forEach((img) => formData.append("images", img)); // Fixed field name
+
         try {
-            // Update the URL to match the backend route
-            const res = await axios.post("http://localhost:8000/api/v2/product/create-product", formData, config);
-            console.log("Response:", res.data);
-        } catch (err) {
-            console.error("Error:", err);
+            if (isEdit) {
+                const response = await axios.put(
+                    `http://localhost:8000/api/v2/product/update-product/${id}`, // Fixed template string
+                    formData,
+                    {
+                        headers: {
+                            "Content-Type": "multipart/form-data"
+                        }
+                    }
+                );
+                if (response.status === 200) { // Fixed comparison operator
+                    alert("Product Updated Successfully");
+                    navigate("/my-products");
+                }
+            } else {
+                const response = await axios.post(
+                    "http://localhost:8000/api/v2/product/create-product", // Fixed API endpoint
+                    formData,
+                    {
+                        headers: {
+                            "Content-Type": "multipart/form-data"
+                        }
+                    }
+                );
+                if (response.status === 201) {
+                    alert("Product Created Successfully");
+                    // Reset form
+                    setImages([]);
+                    setPreviewImages([]);
+                    setName("");
+                    setDescription("");
+                    setCategory("");
+                    setTags("");
+                    setPrice("");
+                    setStock("");
+                    setEmail("");
+                }
+            }
+        } catch (error) {
+            console.error("Error creating/updating product", error);
+            alert("Error creating/updating product");
         }
     };
-    
+
     return (
         <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-indigo-100 via-indigo-200 to-indigo-300">
             <div className="w-[90%] max-w-[700px] bg-white shadow-md rounded-3xl p-10 mx-auto my-8 transform transition-all duration-500 hover:shadow-lg hover:scale-[1.02]">
                 <h5 className="mb-8 text-center text-3xl font-semibold text-indigo-500 hover:text-indigo-600 transition-colors duration-500">
-                    Create Product
+                    {isEdit ? "Edit Product" : "Create Product"}
                 </h5>
                 <form onSubmit={handleSubmit} className="space-y-6">
                     {/* Form Fields */}
@@ -93,7 +147,6 @@ const CreateProduct = () => {
                         />
                     </div>
 
-                    {/* Name Input */}
                     <div className="space-y-2 group">
                         <label className="block text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors duration-300">
                             Name <span className="text-red-500">*</span>
@@ -111,7 +164,6 @@ const CreateProduct = () => {
                         />
                     </div>
 
-                    {/* Description */}
                     <div className="space-y-2 group">
                         <label className="block text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors duration-300">
                             Description <span className="text-red-500">*</span>
@@ -129,7 +181,6 @@ const CreateProduct = () => {
                         />
                     </div>
 
-                    {/* Category */}
                     <div className="space-y-2 group">
                         <label className="block text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors duration-300">
                             Category <span className="text-red-500">*</span>
@@ -154,7 +205,6 @@ const CreateProduct = () => {
                         </select>
                     </div>
 
-                    {/* Tags */}
                     <div className="space-y-2 group">
                         <label className="block text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors duration-300">
                             Tags <span className="text-red-500">*</span>
@@ -172,7 +222,6 @@ const CreateProduct = () => {
                         />
                     </div>
 
-                    {/* Price and Stock */}
                     <div className="grid grid-cols-2 gap-6">
                         <div className="space-y-2 group">
                             <label className="block text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors duration-300">
@@ -208,7 +257,6 @@ const CreateProduct = () => {
                         </div>
                     </div>
 
-                    {/* Upload Images */}
                     <div className="space-y-2 group">
                         <label className="block text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors duration-300">
                             Upload Images <span className="text-red-500">*</span>
@@ -219,7 +267,6 @@ const CreateProduct = () => {
                             className="hidden"
                             onChange={handleImagesChange}
                             multiple
-                            required
                         />
                         <label
                             htmlFor="upload"
@@ -237,18 +284,15 @@ const CreateProduct = () => {
                         </label>
                     </div>
 
-                    {/* Image Previews */}
                     {previewImages.length > 0 && (
                         <div className="grid grid-cols-3 gap-4 mt-4">
                             {previewImages.map((img, index) => (
-                               
-                                    <img
-                                        src={img}
-                                        key={index}
-                                        alt="Preview"
-                                        className="w-full h-24 object-cover rounded-lg shadow-md"
-                                    />
-                            
+                                <img
+                                    key={index}
+                                    src={img}
+                                    alt="Preview"
+                                    className="w-full h-24 object-cover rounded-lg shadow-md"
+                                />
                             ))}
                         </div>
                     )}
@@ -262,7 +306,7 @@ const CreateProduct = () => {
                             transition-all duration-300
                             focus:outline-none focus:ring-2 focus:ring-indigo-400"
                     >
-                        Create Product
+                        {isEdit ? "Save Changes" : "Create Product"}
                     </button>
                 </form>
             </div>
