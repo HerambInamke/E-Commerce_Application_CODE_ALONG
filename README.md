@@ -690,4 +690,29 @@ In this milestone, we will implement functionality to delete a product using its
 
 **Note:** This lesson will help you understand the delete operation in detail.  
 
+---
+
+# Milestone 15: Navigation Component 📝
+
+### 1. Create a New `Nav` Component
+- The `Nav` component should contain links to the following pages:
+  - Home
+  - My Products
+  - Add Product
+  - Cart
+
+### 2. Make the Navbar Responsive
+- Ensure the `Nav` component is fully responsive across all screen sizes.
+- Use CSS media queries or a framework like Tailwind CSS or Bootstrap for styling.
+
+### 3. Add the `Nav` Component to All Pages
+- Include the `Nav` component in all pages of the application.
+- Implement smooth navigation to ensure a seamless user experience.
+
+## Learning Outcomes
+- Understand  to create a navigation bar in a web application.
+- Learn to implement responsive design for better usability.
+- Enhance your skills in linking multiple pages for smooth navigation.
+
+
 
