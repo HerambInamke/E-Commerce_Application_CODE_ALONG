@@ -728,7 +728,50 @@ By the end of this milestone:
 ## Steps for Milestone 16 📝  
 1. Create a new page that displays all the product data.  
 2. Implement a quantity selector for each product.  
-3. Add an "Add to Cart" button to allow users to add products with the selected quantity.  
+3. Add an "Add to Cart" button to allow users to add products with the selected quantity.
+
+
+---
+
+# Milestone 17: Cart Functionality
+
+## Overview
+In this milestone,work on implementing cart functionality. The goal is to store product details in a user's cart and create an endpoint to receive and store these details in the database.
+
+## Steps for Milestone 17 📝
+
+### 1. Edit the User Schema to Store Cart Products
+- Modify the user schema to include a field that will hold product details in the cart.
+
+### 2. Write the Cart Schema to Store Products
+- Create a new schema for the cart that can store product details such as product ID, quantity, and other necessary attributes.
+
+### 3. Write an Endpoint to Receive and Store Product Details in the Cart
+- Create a new endpoint that will receive product details from the frontend and store them in the database, specifically in the cart.
+
+---
+
+# Milestone 18: Cart Functionality - Backend Endpoints
+
+## Overview
+In this milestone, work on backend functionality for the cart. The goal is to create endpoints that handle requests from the cart page and retrieve product details for a user’s cart.
+
+## By the End of This Milestone,
+
+- Create an endpoint to receive requests from the cart page.
+- Create a backend endpoint to fetch all the products inside the cart based on the user's email.
+
+## Steps for Milestone 18 📝
+
+### 1. Create a Backend Endpoint for Cart Page
+- Implement an endpoint that will receive requests from the frontend (cart page) and store/update products in the user's cart.
+
+### 2. Write an Endpoint to Get Products Inside Cart for a User
+- Create a new endpoint that will fetch and return all the products inside the cart for a specific user, identified by their email.
+
+---
+
+
 
 
 
