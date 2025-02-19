@@ -107,25 +107,38 @@ Integrate backend API for user authentication.
 Implement proper error handling and form validation.
 Enhance UI/UX by displaying success or error messages after login attempts.
 
-### Milestone 3 Overview
-In this milestone, I have successfully implemented the following key features for the backend project:
+# Milestone 3: Backend Project Setup and Key Features
 
-Backend Folder Structure
-I have meticulously organized the backend project files by creating a well-defined hierarchy. This includes separating essential components such as routes, controllers, models, and middleware. This structure not only ensures a clean and manageable codebase but also lays the foundation for scaling the application as new features are added. Additionally, I have started understanding terms like utils and middlewares, which play an integral role in backend development.
+## Overview
+In this milestone, I have successfully implemented several key features for the backend of the project. These include the organization of the backend folder structure, setting up the Node.js server, integrating MongoDB, and implementing error handling. Below is a detailed breakdown of each accomplishment.
 
-Node.js Server Setup
-To handle API requests efficiently, I set up a Node.js server using Express. The server has been configured to listen on a designated port, ensuring smooth communication between the client and server. This setup serves as the backbone for managing backend processes and acts as a gateway for future API integrations.
+## Key Features Implemented
 
-MongoDB Integration
-I successfully integrated MongoDB into the project, enabling efficient and reliable data storage. The integration process included setting up a connection between the server and the database, which has been thoroughly tested and confirmed. This step ensures that the application can handle data management seamlessly, paving the way for robust CRUD operations.
+### 1. **Backend Folder Structure**
+I have meticulously organized the backend project files, creating a well-defined hierarchy to ensure a clean and manageable codebase. This structure includes separate directories for:
+- **Routes**
+- **Controllers**
+- **Models**
+- **Middleware**
 
-Error Handling Implementation
-Recognizing the importance of a resilient application, I implemented basic error-handling mechanisms. These include providing clear error messages that enhance the debugging process and offer better user feedback. The error handling setup not only improves the reliability of the application but also makes it more developer-friendly for future troubleshooting and enhancements.
+This setup not only enhances code readability and maintainability but also establishes a solid foundation for scaling the application as new features are added. During this phase, I also began exploring concepts such as **utils** and **middlewares**, which are crucial for efficient backend development.
 
-Additional Notes
-Throughout this milestone, I have followed best practices to ensure that the backend code remains modular and maintainable. By adhering to a structured approach, I have set a solid groundwork that will support the development of more advanced features in subsequent milestones. This milestone also served as an opportunity to enhance my understanding of backend architecture and the integration of modern tools like MongoDB.
+### 2. **Node.js Server Setup**
+To handle API requests efficiently, I set up a Node.js server using Express. The server is configured to listen on a designated port, enabling smooth communication between the client and server. This setup serves as the backbone for backend operations and will act as a gateway for future API integrations and functionalities.
 
-With these achievements, the foundation for a robust and scalable backend system is firmly in place. Moving forward, I am well-prepared to tackle more complex functionalities, optimize the existing codebase, and ensure the backend system aligns seamlessly with the project’s overall goals.
+### 3. **MongoDB Integration**
+MongoDB has been successfully integrated into the project to manage data storage efficiently. The integration process involved setting up a connection between the server and the database, which has been thoroughly tested. This step lays the groundwork for robust CRUD (Create, Read, Update, Delete) operations and ensures reliable data management across the application.
+
+### 4. **Error Handling Implementation**
+Recognizing the importance of a resilient application, I implemented basic error-handling mechanisms. These include:
+- Clear error messages to improve debugging
+- User-friendly feedback to enhance the overall experience
+
+The error-handling setup ensures the application is more reliable and developer-friendly, laying the groundwork for smoother troubleshooting and future enhancements.
+
+---
+
+This milestone marks a significant step forward in the backend development process, and I am excited to continue building on this foundation in future milestones.
 
 ---
 # Milestone 4: Livebooks Backend Web Development
@@ -713,6 +726,66 @@ In this milestone, we will implement functionality to delete a product using its
 - Understand  to create a navigation bar in a web application.
 - Learn to implement responsive design for better usability.
 - Enhance your skills in linking multiple pages for smooth navigation.
+
+---
+
+# Milestone 16 - Product Info Page  
+
+### will create a product info page that displays all the product data, allows users to choose the quantity, and includes an "Add to Cart" button.  
+
+## Learning Goals 🎯  
+By the end of this milestone:  
+- How to create a new page to display each product.  
+- How to add a quantity selector and an "Add to Cart" button.  
+
+## Steps for Milestone 16 📝  
+1. Create a new page that displays all the product data.  
+2. Implement a quantity selector for each product.  
+3. Add an "Add to Cart" button to allow users to add products with the selected quantity.
+
+
+---
+
+# Milestone 17: Cart Functionality
+
+## Overview
+In this milestone,work on implementing cart functionality. The goal is to store product details in a user's cart and create an endpoint to receive and store these details in the database.
+
+## Steps for Milestone 17 📝
+
+### 1. Edit the User Schema to Store Cart Products
+- Modify the user schema to include a field that will hold product details in the cart.
+
+### 2. Write the Cart Schema to Store Products
+- Create a new schema for the cart that can store product details such as product ID, quantity, and other necessary attributes.
+
+### 3. Write an Endpoint to Receive and Store Product Details in the Cart
+- Create a new endpoint that will receive product details from the frontend and store them in the database, specifically in the cart.
+
+---
+
+# Milestone 18: Cart Functionality - Backend Endpoints
+
+## Overview
+In this milestone, work on backend functionality for the cart. The goal is to create endpoints that handle requests from the cart page and retrieve product details for a user’s cart.
+
+## By the End of This Milestone,
+
+- Create an endpoint to receive requests from the cart page.
+- Create a backend endpoint to fetch all the products inside the cart based on the user's email.
+
+## Steps for Milestone 18 📝
+
+### 1. Create a Backend Endpoint for Cart Page
+- Implement an endpoint that will receive requests from the frontend (cart page) and store/update products in the user's cart.
+
+### 2. Write an Endpoint to Get Products Inside Cart for a User
+- Create a new endpoint that will fetch and return all the products inside the cart for a specific user, identified by their email.
+
+---
+
+
+
 
 
 
