@@ -17,7 +17,7 @@ console.log(data);
 
 };
 
-router.post('/create-product', pupload.array('image', 10), async (req, res, next) => {
+router.post('/create-product', pupload.array('images', 10), async (req, res, next) => {
     const { name, description, category, tags, price, stock, email } = req.body;
 
     // Store image paths
@@ -114,7 +114,7 @@ router.get('/product/:id', async (req, res, next) => {
     }
 });
 
-router.put('/update-product/:id', pupload.array('image', 10), async (req, res) => {
+router.put('/update-product/:id', pupload.array('images', 10), async (req, res) => {
     const { id } = req.params;
     const { name, description, category, tags, price, stock, email } = req.body;
 
