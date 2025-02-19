@@ -4,4 +4,7 @@ import Home from "../pages/Home.jsx"
 import CreateProduct from "../pages/createProduct.jsx"
 import MyProducts from "../pages/myProduct.jsx"
 import Cart from "../pages/cart.jsx"
-export {Login,SignupPage,Home,CreateProduct,MyProducts,Cart}
+import ProductDetails from "../pages/productDetails.jsx"
+
+
+export {Login,SignupPage,Home,CreateProduct,MyProducts,Cart,ProductDetails}

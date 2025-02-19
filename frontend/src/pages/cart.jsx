@@ -1,9 +1,9 @@
-import Nav from '../components/nav';
+import Navbar from '../components/Nav';
 
 const Cart = ()=>{
     return(
         <>
-        <Nav />
+        <Navbar />
         <div>
             <h1>Cart Page</h1>
         </div>

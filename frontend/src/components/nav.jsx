@@ -83,7 +83,7 @@ const Navbar = () => {
                             </li>
                             <li>
                                 <NavLink
-                                    to="/create-product"
+                                    to="/product"
                                     end
                                     className={navLinkClass}
                                 >
