@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
+
+
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -130,7 +132,7 @@ const Navbar = () => {
                                 My Product
                             </NavLink>
                         </li>
-                        <li>
+                        <li>    
                             <NavLink
                                 to="/create-product"
                                 end

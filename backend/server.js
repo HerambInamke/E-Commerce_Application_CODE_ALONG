@@ -9,6 +9,8 @@ const product = require("./controller/product");
 const user = require("./controller/user");
 const path =require('path');
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use("/api/v2/user", user);
 app.use("/api/v2/product", product);

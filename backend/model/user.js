@@ -57,6 +57,21 @@ const userSchema = new mongoose.Schema({
             required: true,
         },
     },
+    cart:[
+        {
+            productId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Product",
+                required: [true, "Please select a product!"],
+            },
+            quantity: {
+                type: Number,
+                required: [true, "Please enter the quantity!"],
+                min: [1, "Quantity should be greater than 0!"],
+                default:1,
+            },
+        },
+    ],
     createdAt: {
         type: Date, // Fixed typo from `DataTransfer` to `Date`
         default: Date.now,
