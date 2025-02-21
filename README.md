@@ -784,8 +784,20 @@ In this milestone, work on backend functionality for the cart. The goal is to cr
 
 ---
 
+# 🛒 Cart Functionality - Milestone 19
 
+## 🎯 Learning Goals
+- Build a cart page that displays products inside the cart using the endpoint created in Milestone 18.
+- Implement an option to increase and decrease product quantity using `+` and `-` buttons.
+- Develop backend endpoints to handle quantity updates dynamically.
 
-
-
-
+## 📝 Steps for Milestone 19
+1. **Create the Cart Page**
+   - Develop the frontend page to display products in the cart.
+   
+2. **Add Quantity Controls**
+   - Implement `+` and `-` buttons for each product to allow users to adjust the quantity.
+   
+3. **Set Up Backend Endpoints**
+   - Write API endpoints to increase and decrease product quantity based on user actions.
+   
