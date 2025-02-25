@@ -800,4 +800,31 @@ In this milestone, work on backend functionality for the cart. The goal is to cr
    
 3. **Set Up Backend Endpoints**
    - Write API endpoints to increase and decrease product quantity based on user actions.
+
+
+
+   ---
+
+   # Milestone 20 - User Profile Page
+
+## Steps to Complete 📝
+
+### Backend:
+1. Create an endpoint to send user data (including profile photo, name, email, and address).
+
+### Frontend:
+2. Create a profile page to display user details.
+3. Display the following information in one section:
+   - Profile photo
+   - Name
+   - Email
+4. In another section, display the user's address:
+   - If an address exists, display it.
+   - If no address is found, show: **"No address found"**
+   - Add a button labeled **"Add address"** to allow users to add an address.
+
+### Notes:
+- Ensure proper API integration between frontend and backend.
+- Maintain a clean and responsive UI.
+- Handle cases where the user has no address data gracefully.
    
