@@ -101,6 +101,17 @@ const Navbar = () => {
                                     Cart
                                 </NavLink>
                             </li>
+                            <li>
+                            <NavLink
+                                to="/profile"
+                                end
+                                className={navLinkClass}
+                                onClick={() => setIsOpen(false)}
+                            >
+                                Profile
+                            </NavLink>
+                        </li>
+                        
                         </ul>
                     </div>
                 </div>
@@ -150,6 +161,16 @@ const Navbar = () => {
                                 onClick={() => setIsOpen(false)}
                             >
                                 Cart
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                to="/profile"
+                                end
+                                className={navLinkClass}
+                                onClick={() => setIsOpen(false)}
+                            >
+                                Profile
                             </NavLink>
                         </li>
                     </ul>

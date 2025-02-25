@@ -244,6 +244,39 @@ router.get('/cartproducts',async (req, res) =>{
         console.error('Server error!',e);
         res.status(500).json({ error: "Server error!" });
     }
+    router.put('/cartproduct/quantity',async (req,res)=>{
+        const {email,productId,quantity}=req.body;
+        console.log("Updated cart product")
+    
+        if(!email || !productId || quantity===undefined){
+            return res.status(400).json({error: "Email and other stuff required"})
+        }
+    
+        try{
+            const user=await User.findOne({email})
+    
+            if(!user){
+                return res.status(404).json({error: "User not found"})
+            }
+            const cartProduct=await User.findOne(item=>item.productId.toString===productId)
+    
+            if(!cartProduct){
+                return res.status(404).json({error: "Product not found"})
+            }
+    
+            cartProduct.quantity=quantity
+            await User.save()
+    
+            res.status(200).json({
+                message: "Suceessssss"
+            })
+        }catch(err){
+            console.error(err)
+            res.status(500)
+        }
+    
+    
+    })
 });
 
 module.exports = router;

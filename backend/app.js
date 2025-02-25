@@ -6,7 +6,7 @@ const errorHandler = require("./middleware/error");
 app.use(errorHandler);
 const path = require("paths");
 
-// Built-in middleware for parsing JSON
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

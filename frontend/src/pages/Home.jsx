@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Product from '../components/Products';
+import Nav from '../components/Nav';
+
 
 export default function Home() {
     const [products, setProducts] = useState([]);
@@ -30,6 +32,8 @@ export default function Home() {
     }, []);
 
     return (
+        <>
+        <Nav/>
         <div className="w-full min-h-screen bg-gray-800 p-6">
             <h1 className="text-3xl text-center text-white py-6">Product List</h1>
 
@@ -48,5 +52,6 @@ export default function Home() {
                 )}
             </div>
         </div>
+        </>
     );
 }
