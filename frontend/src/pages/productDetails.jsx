@@ -1,28 +1,28 @@
 import React from "react";
-import { useEffect , useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Nav from "../components/Nav";
 import { IoIosAdd } from "react-icons/io";
 import { IoIosRemove } from "react-icons/io";
-const email="coco@gmail.com"
+const email = "coco@gmail.com";
 
 export default function ProductDetails() {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
-    const [loading, setLoading] = useState(null);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [quantity, setQuantity] = useState(1);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     useEffect(() => {
         const fetchProduct = async () => {
             try {
                 const response = await axios.get(`http://localhost:8000/api/v2/product/product/${id}`);
-                console.log("Fetching product", response.data.product);
                 setProduct(response.data.product);
                 setLoading(false);
             } catch (err) {
-                console.log("Error fetching product", err);
+                console.error("Error fetching product", err);
                 setError(err);
                 setLoading(false);
             }
@@ -31,9 +31,11 @@ export default function ProductDetails() {
     }, [id]);
 
     useEffect(() => {
-        if (product !== null) {
-            console.log("Updated Product state:", product);
-            console.log("Product Product name:", product.name);
+        if (product?.images?.length > 1) {
+            const interval = setInterval(() => {
+                setCurrentImageIndex((prev) => (prev + 1) % product.images.length);
+            }, 3000);
+            return () => clearInterval(interval);
         }
     }, [product]);
 
@@ -50,157 +52,174 @@ export default function ProductDetails() {
             const response = await axios.post(
                 "http://localhost:8000/api/v2/product/cart",
                 {
-                    userId: email,  // Make sure email is defined
+                    userId: email,
                     productId: id,
                     quantity: quantity,
                 },
                 {
                     headers: {
-                        "Content-Type": "application/json",  // Ensure correct content type
+                        "Content-Type": "application/json",
                     },
                 }
             );
+            alert("Product added to cart successfully!");
             console.log("Added to cart:", response.data);
         } catch (err) {
-            console.log("Error adding to cart:", err.response?.data || err.message);
+            console.error("Error adding to cart:", err.response?.data || err.message);
+            alert("Failed to add product to cart. Please try again.");
         }
     };
-    
 
     if (loading) {
-        return <div className="text-center text-white mt-10">Loading...</div>;
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-gray-100">
+                <div className="text-xl text-gray-600">Loading...</div>
+            </div>
+        );
     }
+
     if (error) {
-        return <div className="text-center text-red-500 mt-10">Error: {error}</div>;
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-gray-100">
+                <div className="text-xl text-red-600">Error loading product. Please try again later.</div>
+            </div>
+        );
     }
+
     if (!product) {
         return (
-            <div className="flex justify-center items-center h-screen">
-                <div className="text-gray-500 text-xl">Product not found</div>
+            <div className="min-h-screen flex items-center justify-center bg-gray-100">
+                <div className="text-xl text-gray-600">Product not found</div>
             </div>
-        )
+        );
     }
+
+    const currentImage = product.images && product.images.length > 0 
+        ? `http://localhost:8000${product.images[currentImageIndex]}`
+        : 'https://via.placeholder.com/400';
+
     return (
         <>
             <Nav />
-            <div className="container mx-auto p-6">
-                <div className="bg-white drop-shadow-lg rounded-lg overflow-hidden">
-                    <div className="md:flex select-none">
-                        {/* Image section */}
-                        <div className="w-full bsm:w-2/3 md:w-1/3 rounded-lg">
-                            {product.images && product.images.length > 0 ? (
+            <div className="container mx-auto px-4 py-8">
+                <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+                    <div className="md:flex">
+                        {/* Image Section */}
+                        <div className="md:w-1/2">
+                            <div className="relative aspect-square">
                                 <img
-                                    src={`http://localhost:8000${product.images[0]}`}
+                                    src={currentImage}
                                     alt={product.name}
-                                    className="w-full h-full object-contain bsm:object-cover"
-                                    style={{ maxHeight: "500px" }}
+                                    className="w-full h-full object-cover"
+                                    onError={(e) => {
+                                        e.target.onerror = null;
+                                        e.target.src = 'https://via.placeholder.com/400';
+                                    }}
                                 />
-                            ) : (
-                                <div className="w-full h-64 bg-gray-200 flex items-center justify-center">
-                                    No Image Available
+                            </div>
+                            {product.images && product.images.length > 1 && (
+                                <div className="flex justify-center gap-2 mt-4 p-4">
+                                    {product.images.map((img, index) => (
+                                        <button
+                                            key={index}
+                                            onClick={() => setCurrentImageIndex(index)}
+                                            className={`w-3 h-3 rounded-full ${
+                                                index === currentImageIndex 
+                                                    ? 'bg-blue-600' 
+                                                    : 'bg-gray-300'
+                                            }`}
+                                        />
+                                    ))}
                                 </div>
                             )}
+                        </div>
 
-
-                            {/* Information section */}
-                            <div className="md:w-1/2 p-6">
-                            <h1 className="text-3xl font-semibold mb-4 text-gray-800">
+                        {/* Product Details Section */}
+                        <div className="md:w-1/2 p-8">
+                            <h1 className="text-3xl font-bold text-gray-900 mb-4">
                                 {product.name}
                             </h1>
 
-                            <div className="mb-4">
-                                <h2 className="text-xl font-medium text-gray-700">
+                            <div className="mb-6">
+                                <h2 className="text-xl font-semibold text-gray-700 mb-2">
                                     Description
                                 </h2>
-                                <p className="text-gray-600 mt-2">
+                                <p className="text-gray-600">
                                     {product.description}
                                 </p>
                             </div>
 
-                            <div className="mb-4">
-                                <h2 className="text-xl font-medium text-gray-700">
+                            <div className="mb-6">
+                                <h2 className="text-xl font-semibold text-gray-700 mb-2">
                                     Category
                                 </h2>
-                                <p className="text-gray-600 mt-2">
+                                <p className="text-gray-600">
                                     {product.category}
                                 </p>
                             </div>
 
-                            {product.tags && product.tags.length>0 && (
-                                <div>
-                                    <h2 className="text-xl font-medium text-gray-700">
+                            {product.tags && product.tags.length > 0 && (
+                                <div className="mb-6">
+                                    <h2 className="text-xl font-semibold text-gray-700 mb-2">
                                         Tags
-                                        </h2>
-                                        <div className="mt-2 flex flex-wrap">
-                                            {product.tags.map((tag, index) => (
-                                                <span 
+                                    </h2>
+                                    <div className="flex flex-wrap gap-2">
+                                        {product.tags.map((tag, index) => (
+                                            <span
                                                 key={index}
-                                                className="bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-sm mr-2"
-                                                >
-                                                    {tag}
-                                                </span>
-                                            ))}
-
+                                                className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm"
+                                            >
+                                                {tag}
+                                            </span>
+                                        ))}
                                     </div>
                                 </div>
                             )}
+
+                            <div className="mb-6">
+                                <h2 className="text-xl font-semibold text-gray-700 mb-2">
+                                    Price
+                                </h2>
+                                <p className="text-2xl font-bold text-blue-600">
+                                    ${product.price.toFixed(2)}
+                                </p>
                             </div>
-                            <div className="flex flex-wrap gap-x-5 mt-3 mb-5 items-start">
-                                <div className="flex flex-col gap-y-3">
-                                    <h2 className="text-xl font-medium text-gray-700">
-                                        Price
-                                    </h2>
-                                    <p className="text-gray-600 text-lg font-semibold">
-                                        ${product.price}
-                                    </p>
-                                </div>
-                                {/* 4. Update Quantity Section */}
-                                <div className="flex flex-col gap-y-3">
-                                    <div className="text-xl font-medium text-gray-700">
-                                        Quantity
-                                    </div>
-                                    <div className="flex flex-row items-center gap-x-2">
-                                        {/* 5. Attach onClick to Increment Button */}
-                                        <div
-                                            onClick={handleIncrement}
-                                            className="flex justify-center items-center bg-gray-200 hover:bg-gray-300 active:translate-y-1 p-2 rounded-xl cursor-pointer"
-                                        >
-                                            <IoIosAdd />
-                                        </div>
-                                        {/* 6. Display Current Quantity */}
-                                        <div className="px-5 py-1 text-center bg-gray-100 rounded-xl pointer-events-none">
-                                            {quantity}
-                                        </div>
-                                        {/* 7. Attach onClick to Decrement Button */}
-                                        <div
-                                            onClick={handleDecrement}
-                                            className="flex justify-center items-center bg-gray-200 hover:bg-gray-300 active:translate-y-1 p-2 rounded-xl cursor-pointer"
-                                        >
-                                            <IoIosRemove />
-                                        </div>
-                                    </div>
+
+                            <div className="mb-6">
+                                <h2 className="text-xl font-semibold text-gray-700 mb-2">
+                                    Quantity
+                                </h2>
+                                <div className="flex items-center gap-4">
+                                    <button
+                                        onClick={handleDecrement}
+                                        className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors"
+                                    >
+                                        <IoIosRemove className="text-xl" />
+                                    </button>
+                                    <span className="text-xl font-semibold w-12 text-center">
+                                        {quantity}
+                                    </span>
+                                    <button
+                                        onClick={handleIncrement}
+                                        className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors"
+                                    >
+                                        <IoIosAdd className="text-xl" />
+                                    </button>
                                 </div>
                             </div>
 
-                            <div className="flex flex-wrap gap-x-5 my-3">
-                                <button className="bg-black text-white px-5 py-2 rounded-full hover:bg-neutral-800 hover:-translate-y-1.5 active:translate-y-0 transition-transform duration-200 ease-in-out active:duration-0 active:ease-linear"
-                                onClick={addToCart}>
-                                    Add to Cart
-                                </button>
-                            </div>
-
-
-                            
-
-
+                            <button
+                                onClick={addToCart}
+                                className="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold
+                                    hover:bg-blue-700 transition-colors duration-200
+                                    focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                            >
+                                Add to Cart
+                            </button>
                         </div>
-
-
                     </div>
                 </div>
             </div>
-
         </>
-    )
-
+    );
 }
