@@ -1,7 +1,8 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../components/nav.jsx";
 import AddressCard from "../components/addresscard.jsx";
 import { useNavigate } from "react-router-dom";
+
 export default function Profile() {
     const [personalDetails, setPersonalDetails] = useState({
         name: "",
@@ -33,96 +34,92 @@ export default function Profile() {
             .catch((error) => {
                 console.error("Error fetching profile:", error);
             });
-    }, []); // Added dependency array to prevent infinite loop
+    }, []);
 
-    const avatarUrl = personalDetails.avatarUrl
-        ? `http://localhost:8000${personalDetails.avatarUrl}`
+    // Fix the avatar URL construction
+    const avatarUrl = personalDetails.avatar?.url
+        ? `http://localhost:8000${personalDetails.avatar.url}`
         : 'https://via.placeholder.com/150';
 
     const handleAddAddress = () => {
         navigate('/create-address');
     }
-        return (
-        <>
-            <Navbar/>
-            <div className="w-full min-h-screen bg-neutral-800 p-5">
-                <div className="w-full h-full bg-neutral-700 rounded-lg">
-                    <div className="w-full h-max my-2 p-5">
-                        <div className="w-full h-max">
-                            <h1 className="text-3xl text-neutral-100">
-                                Personal Details
-                            </h1>
-                        </div>
-                        <div className="w-full h-max flex flex-col sm:flex-row p-5 gap-10">
-                            <div className="w-40 h-max flex flex-col justify-center items-center gap-y-3">
-                                <div className="w-full h-max text-2xl text-neutral-100 text-left">
-                                    PICTURE
+
+    return (
+        <div className="min-h-screen bg-gray-50">
+            <Navbar />
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    {/* Personal Details Section */}
+                    <div className="p-8">
+                        <h1 className="text-3xl font-bold text-gray-900 mb-8">
+                            Personal Details
+                        </h1>
+                        <div className="flex flex-col md:flex-row gap-10">
+                            {/* Profile Picture */}
+                            <div className="flex flex-col items-center space-y-4">
+                                <h2 className="text-xl font-semibold text-gray-700">Profile Picture</h2>
+                                <div className="relative">
+                                    <img
+                                        src={avatarUrl}
+                                        alt="profile"
+                                        className="w-40 h-40 rounded-full object-cover shadow-lg ring-4 ring-gray-100"
+                                        onError={(e) => {
+                                            e.target.onerror = null;
+                                            e.target.src = 'https://via.placeholder.com/150';
+                                        }}
+                                    />
                                 </div>
-                                <img
-                                    src={avatarUrl}
-                                    alt="profile"
-                                    className="w-40 h-40 rounded-full object-cover"
-                                    onError={(e) => {
-                                        e.target.onerror = null;
-                                        e.target.src = 'https://via.placeholder.com/150';
-                                    }}
-                                />
                             </div>
-                            <div className="h-max md:flex-grow">
-                                <div className="w-full h-max flex flex-col justify-center items-center gap-y-3">
-                                    <div className="w-full h-max">
-                                        <div className="text-2xl text-neutral-100 text-left">
-                                            NAME
-                                        </div>
-                                        <div className="text-lg font-light text-neutral-100 text-left break-all">
-                                            {personalDetails.name || 'Not provided'}
-                                        </div>
-                                    </div>
-                                    <div className="w-full h-max">
-                                        <div className="text-2xl text-neutral-100 text-left">
-                                            EMAIL
-                                        </div>
-                                        <div className="text-lg font-light text-neutral-100 text-left break-all">
-                                            {personalDetails.email || 'Not provided'}
-                                        </div>
-                                    </div>
-                                    <div className="w-full h-max">
-                                        <div className="text-2xl text-neutral-100 text-left">
-                                            MOBILE
-                                        </div>
-                                        <div className="text-lg font-light text-neutral-100 text-left break-all">
-                                            {personalDetails.phoneNumber || 'Not provided'}
-                                        </div>
-                                    </div>
+
+                            {/* Personal Information */}
+                            <div className="flex-1 space-y-6">
+                                <div>
+                                    <h2 className="text-xl font-semibold text-gray-700 mb-2">Name</h2>
+                                    <p className="text-lg text-gray-600">{personalDetails.name || 'Not provided'}</p>
+                                </div>
+                                <div>
+                                    <h2 className="text-xl font-semibold text-gray-700 mb-2">Email</h2>
+                                    <p className="text-lg text-gray-600">{personalDetails.email || 'Not provided'}</p>
+                                </div>
+                                <div>
+                                    <h2 className="text-xl font-semibold text-gray-700 mb-2">Phone Number</h2>
+                                    <p className="text-lg text-gray-600">{personalDetails.phoneNumber || 'Not provided'}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="w-full h-max my-2 p-5">
-                        <div className="w-full h-max">
-                            <h1 className="text-3xl text-neutral-100">
-                                Addresses
-                            </h1>
-                        </div>
-                        <div className="w-full h-max p-5">
-                            <button className="w-max px-3 py-2 bg-neutral-600 text-neutral-100 rounded-md text-center hover:bg-neutral-100 hover:text-black transition-all duration-100" onClick={handleAddAddress}>
-                                Add Address
+
+                    {/* Addresses Section */}
+                    <div className="border-t border-gray-200 p-8">
+                        <div className="flex justify-between items-center mb-8">
+                            <h1 className="text-3xl font-bold text-gray-900">Addresses</h1>
+                            <button 
+                                onClick={handleAddAddress}
+                                className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold
+                                    hover:bg-blue-700 transform hover:scale-105
+                                    transition-all duration-200 shadow-md
+                                    focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                            >
+                                Add New Address
                             </button>
                         </div>
-                        <div className="w-full h-max flex flex-col gap-5 p-5">
-                            {address.length === 0 ? (
-                                <div className="w-full h-max text-neutral-100 font-light text-left">
-                                    No Addresses Found
-                                </div>
-                            ) : (
-                                address.map((addr, index) => (
-                                    <AddressCard key={index} {...addr}/>
-                                ))
-                            )}
-                        </div>
+
+                        {address.length === 0 ? (
+                            <div className="text-center py-12 bg-gray-50 rounded-lg">
+                                <p className="text-xl text-gray-600">No addresses found</p>
+                                <p className="mt-2 text-gray-500">Add a new address to get started</p>
+                            </div>
+                        ) : (
+                            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                                {address.map((addr, index) => (
+                                    <AddressCard key={index} {...addr} />
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
