@@ -8,13 +8,14 @@ const Cart = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch(`http://localhost:8000/api/v2/cartproducts?email=${'coco@gmail.com'}`)
+        fetch(`http://localhost:8000/api/v2/product/cartproducts?email=${'coco@gmail.com'}`)
             .then((res) => {
                 if(!res.ok) {
                     throw new Error(`HTTP error! status: ${res.status}`);
                 }
                 return res.json();
             })
+            // console.log(object)
             .then((data) => {
                 setProducts(data.cart.map(product => ({
                     quantity: product.quantity,

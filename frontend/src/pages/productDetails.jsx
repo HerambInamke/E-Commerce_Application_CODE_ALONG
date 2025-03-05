@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import Nav from "../components/Nav";
+import Nav from "../components/nav";
 import { IoIosAdd } from "react-icons/io";
 import { IoIosRemove } from "react-icons/io";
 const email = "coco@gmail.com";
@@ -28,7 +28,7 @@ export default function ProductDetails() {
             }
         };
         fetchProduct();
-    }, [id]);
+    }, []);
 
     useEffect(() => {
         if (product?.images?.length > 1) {
@@ -37,7 +37,7 @@ export default function ProductDetails() {
             }, 3000);
             return () => clearInterval(interval);
         }
-    }, [product]);
+    }, []);
 
     const handleIncrement = () => {
         setQuantity((prevQuantity) => prevQuantity + 1);
@@ -93,9 +93,9 @@ export default function ProductDetails() {
             </div>
         );
     }
-
-    const currentImage = product.images && product.images.length > 0 
-        ? `http://localhost:8000${product.images[currentImageIndex]}`
+    console.log(product.image)
+    const currentImage = product.image && product.image.length > 0 
+        ? `http://localhost:8000${product.image[currentImageIndex]}`
         : 'https://via.placeholder.com/400';
 
     return (
@@ -111,10 +111,6 @@ export default function ProductDetails() {
                                     src={currentImage}
                                     alt={product.name}
                                     className="w-full h-full object-cover"
-                                    onError={(e) => {
-                                        e.target.onerror = null;
-                                        e.target.src = 'https://via.placeholder.com/400';
-                                    }}
                                 />
                             </div>
                             {product.images && product.images.length > 1 && (

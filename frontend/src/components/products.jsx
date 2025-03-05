@@ -13,7 +13,7 @@ export default function Product({ _id, name, image, description, price }) {
         }, 2000);
         return () => clearInterval(interval);
     }, [image]);
-
+    console.log(image, image[currentIndex])
     const currentImage = image && image.length > 0 ? image[currentIndex] : null;
     const imageUrl = currentImage ? `http://localhost:8000${currentImage}` : 'https://via.placeholder.com/400';
 

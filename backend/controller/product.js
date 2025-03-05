@@ -133,7 +133,25 @@ router.delete('/delete-product/:id', catchAsyncErrors(async (req, res) => {
     });
 }));
 
-// Cart operations
+// Get cart products
+router.get('/cartproducts', catchAsyncErrors(async (req, res) => {
+    const { email } = req.query;
+    if (!email) {
+        return res.status(400).json({ error: "Email is required!" });
+    }
+
+    const user = await User.findOne({ email }).populate('cart.productId');
+    if (!user) {
+        return res.status(404).json({ error: "User not found!" });
+    }
+
+    res.status(200).json({
+        success: true,
+        cart: user.cart
+    });
+}));
+
+// Add to cart
 router.post('/cart', catchAsyncErrors(async (req, res) => {
     const { userId, productId, quantity } = req.body;
     
@@ -165,20 +183,29 @@ router.post('/cart', catchAsyncErrors(async (req, res) => {
     });
 }));
 
-// Get cart products
-router.get('/cartproducts', catchAsyncErrors(async (req, res) => {
-    const { email } = req.query;
-    if (!email) {
-        return res.status(400).json({ error: "Email is required!" });
-    }
-
-    const user = await User.findOne({ email }).populate('cart.productId');
+// Update cart product quantity
+router.put('/cartproduct/quantity', catchAsyncErrors(async (req, res) => {
+    const { email, productId, quantity } = req.body;
+    
+    const user = await User.findOne({ email });
     if (!user) {
         return res.status(404).json({ error: "User not found!" });
     }
 
+    const cartItemIndex = user.cart.findIndex(
+        item => item.productId.toString() === productId
+    );
+
+    if (cartItemIndex === -1) {
+        return res.status(404).json({ error: "Product not found in cart!" });
+    }
+
+    user.cart[cartItemIndex].quantity = quantity;
+    await user.save();
+
     res.status(200).json({
         success: true,
+        message: "Cart updated successfully!",
         cart: user.cart
     });
 }));

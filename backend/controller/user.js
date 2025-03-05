@@ -48,11 +48,13 @@ router.post('/login-user', catchAsyncErrors(async (req, res, next) => {
     }
 
     const user = await User.findOne({ email }).select('+password');
+    console.log(user)
     if (!user) {
         return next(new ErrorHandler("Invalid email or password", 401));
     }
-
+    console.log(password)
     const isPasswordValid = await bcrypt.compare(password, user.password);
+    console.log(isPasswordValid)
     if (!isPasswordValid) {
         return next(new ErrorHandler("Invalid email or password", 401));
     }

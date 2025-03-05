@@ -55,6 +55,6 @@ AddressCard.propTypes = {
     city: PropTypes.string.isRequired,
     address1: PropTypes.string.isRequired,
     address2: PropTypes.string,
-    zipCode: PropTypes.string.isRequired,
+    zipCode: PropTypes.number.isRequired,
     addressType: PropTypes.string.isRequired,
 };

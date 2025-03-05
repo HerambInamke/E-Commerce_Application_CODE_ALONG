@@ -10,7 +10,7 @@ function CreateAddress() {
         city: "",
         address1: "",
         address2: "",
-        zipcode: "",
+        zipcode: 0,
         addresstype: ""
     });
 
@@ -126,7 +126,7 @@ function CreateAddress() {
                                     ZIP Code
                                 </label>
                                 <input
-                                    type="text"
+                                    type="number"
                                     name="zipcode"
                                     value={formData.zipcode}
                                     onChange={handleChange}

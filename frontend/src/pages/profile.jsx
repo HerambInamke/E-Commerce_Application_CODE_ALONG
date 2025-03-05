@@ -28,6 +28,7 @@ export default function Profile() {
                 return res.json();
             })
             .then((data) => {
+                console.log(data.addresses)
                 setPersonalDetails(data.user);
                 setAddress(data.addresses || []);
             })
