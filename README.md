@@ -845,6 +845,22 @@ Milestone 21! 🌟
 
 ---
 
+# 🚀 Milestone 22: Saving Addresses in User Profiles  
+
+👋  
+## 🎯   
+By the end of this milestone, you'll know how to:  
+✅ Create a backend endpoint that receives an address from the frontend.  
+✅ Store that address inside the user's profile in the database.  
+
+## 📝 Steps to Complete This Milestone  
+1. Create an API endpoint that accepts an address from the frontend form.  
+2. Add the received address to the `addresses` array inside the user collection in the database.  
+3. Test the endpoint to make sure it’s working as expected.  
+
+---
+
+
 
 
    
