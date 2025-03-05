@@ -27,7 +27,7 @@ function CreateAddress() {
 
         const addressData = {
             ...formData,
-            email: "a@gmail.com"
+            email: "coco@gmail.com"
         };
 
         try {
