@@ -827,4 +827,24 @@ In this milestone, work on backend functionality for the cart. The goal is to cr
 - Ensure proper API integration between frontend and backend.
 - Maintain a clean and responsive UI.
 - Handle cases where the user has no address data gracefully.
+
+ ----
+
+# Milestone 21
+
+Milestone 21! 🌟
+
+## Learning Goals 🎯
+- Create a frontend form that will take an address.
+- Take inputs for country, city, address1, address2, zip code, and address type.
+
+## Steps for Milestone 21 📝
+1. Create an address form frontend page.
+2. Create a state that will store the input address.
+3. When clicking on 'Add Address' in the profile, it should navigate to this form page.
+
+---
+
+
+
    
