@@ -3,10 +3,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import { 
   Home,
-  Login,
+  LoginPage,
   SignupPage,
   CreateProduct,
-  MyProducts,
   Cart,
   ProductDetails,
   Profile,
@@ -20,11 +19,11 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/product" element={<CreateProduct />} />
         <Route path="/product/:id" element={<CreateProduct />} />
-        <Route path="/myproducts" element={<MyProducts />} />
+        {/* <Route path="/myproducts" element={<MyProducts />} /> */}
         <Route path="/cart" element={<Cart />} />
         <Route path="/productDetails/:id" element={<ProductDetails />} />
         <Route path="/profile" element={<Profile />} />
