@@ -860,6 +860,55 @@ By the end of this milestone, you'll know how to:
 
 ---
 
+# Milestone 25 - Backend Endpoint for Placing Orders 🚀
+
+Hey Kalvians! 👋
+
+Welcome to **Milestone 25** — today, I’m building a backend endpoint to handle order placements. 🎯
+
+## 🎯 Learning Goals
+By the end of this milestone, I will:
+- Create a backend endpoint that helps place orders.
+- Understand how to manage user and product data effectively.
+- Store order details in MongoDB using the order schema I made earlier.
+
+---
+
+## 🛠️ Steps to Complete Milestone 25
+
+1. **Create the Endpoint:**
+   - I’ll set up a backend route that takes product details, user info, and address data.
+
+2. **Retrieve User Details:**
+   - I’ll extract the user’s email from the request.
+   - Using the email, I’ll fetch the user’s `_id` from the database.
+
+3. **Handle Product Orders:**
+   - For each product, I’ll create a separate order entry.
+   - I’ll keep the same address for all product orders.
+
+4. **Save Orders to MongoDB:**
+   - I’ll use my order schema to structure and store each order in the `orders` collection.
+
+5. **Test the Endpoint:**
+   - I’ll make sure the endpoint works smoothly — handling data properly and saving orders correctly.
+
+---
+
+## 📥 Submission Guidelines
+
+1. **Push Code to GitHub:**
+   - I’ll commit and push everything to a publicly accessible GitHub repository.
+
+2. **Update README:**
+   - I’ll summarize my progress for this milestone (this file covers that!).
+
+3. **Submit the Link:**
+   - I’ll share my GitHub repository link in the assignment submission section.
+
+---
+
+✨ **Let’s get this done, Kalvians — I’m ready to build something awesome!** ✨
 
 
 
