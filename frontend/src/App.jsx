@@ -20,6 +20,8 @@ const App = () => {
       <Route path="/productDetails/:id" element={<ProductDetails />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/create-address" element={<CreateAddress />} />
+      <Route path="/select-address" element={<SelectAddress/>}></Route>
+      <Route path="/order-confirmation" element={<OrderConfirmation/>}></Route>
 
       </Routes>
     </BrowserRouter>

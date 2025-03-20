@@ -1,7 +1,7 @@
-import Navbar from "../components/nav.jsx"
+import Navbar from "../components/Nav"
 import CartProduct from '../components/cartProduct'
 import {useEffect, useState} from "react";
-
+import { useNavigate } from "react-router-dom";
 const Cart = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
