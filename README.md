@@ -860,6 +860,7 @@ By the end of this milestone, you'll know how to:
 
 ---
 
+<<<<<<< HEAD
 # Milestone 25 - Backend Endpoint for Placing Orders 🚀
 
 Hey Kalvians! 👋
@@ -909,6 +910,51 @@ By the end of this milestone, I will:
 ---
 
 ✨ **Let’s get this done, Kalvians — I’m ready to build something awesome!** ✨
+=======
+# Milestone 23 🚀
+
+## Welcome! 🌟
+Hey there! Ready to level up your project? Today, we’re working on two important things:
+- Adding a **Place Order** button inside the cart.
+- Creating a **Select Address** page in the frontend.
+- Setting up a **Mongoose schema** to store order details in the backend.
+
+## What You’ll Learn 🎯
+By the end of this milestone
+- Have a working **Place Order** button that takes users to the Select Address page.
+- Build a page that shows all saved addresses and lets users pick a delivery address.
+- Write a backend schema to store order details properly.
+
+## Steps to Complete 📝
+1. **Add the Place Order button** inside the cart page. When clicked, it should take the user to the Select Address page.
+2. **Build the Select Address page** to display all saved addresses and allow users to choose one.
+3. **Create a backend API endpoint** to fetch and return all addresses associated with a user.
+
+---
+
+# Milestone 24 🚀
+
+## Hey Kalvians! 🌟  
+Welcome back! Today, I’m building an **Order Confirmation** page to bring everything together. This page will show the products I’m ordering, the delivery address I selected, and the total price details. 
+
+## What I’ll Accomplish 🎯  
+By the end of this milestone, I will:
+- Create an **Order Confirmation** page.
+- Display all the products I’m ordering.
+- Show the delivery address I chose.
+- Calculate and display the total order value.
+- Add a **Place Order** button at the bottom.
+
+## My Game Plan 📝  
+1. **Show all the products** I’m ordering.
+2. **Display the delivery address** I selected.
+3. **Calculate and present the total cart value.**
+4. **Add a Place Order button** at the bottom for final confirmation.
+
+Let’s do this! 🚀
+
+---
+>>>>>>> 8b725c73d4f6971a71bc22799f08305d3235212b
 
 
 
