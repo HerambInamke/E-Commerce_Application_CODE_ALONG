@@ -859,57 +859,6 @@ By the end of this milestone, you'll know how to:
 3. Test the endpoint to make sure it’s working as expected.  
 
 ---
-
-<<<<<<< HEAD
-# Milestone 25 - Backend Endpoint for Placing Orders 🚀
-
-Hey Kalvians! 👋
-
-Welcome to **Milestone 25** — today, I’m building a backend endpoint to handle order placements. 🎯
-
-## 🎯 Learning Goals
-By the end of this milestone, I will:
-- Create a backend endpoint that helps place orders.
-- Understand how to manage user and product data effectively.
-- Store order details in MongoDB using the order schema I made earlier.
-
----
-
-## 🛠️ Steps to Complete Milestone 25
-
-1. **Create the Endpoint:**
-   - I’ll set up a backend route that takes product details, user info, and address data.
-
-2. **Retrieve User Details:**
-   - I’ll extract the user’s email from the request.
-   - Using the email, I’ll fetch the user’s `_id` from the database.
-
-3. **Handle Product Orders:**
-   - For each product, I’ll create a separate order entry.
-   - I’ll keep the same address for all product orders.
-
-4. **Save Orders to MongoDB:**
-   - I’ll use my order schema to structure and store each order in the `orders` collection.
-
-5. **Test the Endpoint:**
-   - I’ll make sure the endpoint works smoothly — handling data properly and saving orders correctly.
-
----
-
-## 📥 Submission Guidelines
-
-1. **Push Code to GitHub:**
-   - I’ll commit and push everything to a publicly accessible GitHub repository.
-
-2. **Update README:**
-   - I’ll summarize my progress for this milestone (this file covers that!).
-
-3. **Submit the Link:**
-   - I’ll share my GitHub repository link in the assignment submission section.
-
----
-
-✨ **Let’s get this done, Kalvians — I’m ready to build something awesome!** ✨
 =======
 # Milestone 23 🚀
 
@@ -954,7 +903,86 @@ By the end of this milestone, I will:
 Let’s do this! 🚀
 
 ---
->>>>>>> 8b725c73d4f6971a71bc22799f08305d3235212b
+
+---
+
+
+# Milestone 25 - Backend Endpoint for Placing Orders 🚀
+
+Welcome to **Milestone 25** — today, I’m building a backend endpoint to handle order placements. 🎯
+
+## 🎯 Learning Goals
+By the end of this milestone, I will:
+- Create a backend endpoint that helps place orders.
+- Understand how to manage user and product data effectively.
+- Store order details in MongoDB using the order schema I made earlier.
+
+---
+
+## 🛠️ Steps to Complete Milestone 25
+
+1. **Create the Endpoint:**
+   - I’ll set up a backend route that takes product details, user info, and address data.
+
+2. **Retrieve User Details:**
+   - I’ll extract the user’s email from the request.
+   - Using the email, I’ll fetch the user’s `_id` from the database.
+
+3. **Handle Product Orders:**
+   - For each product, I’ll create a separate order entry.
+   - I’ll keep the same address for all product orders.
+
+4. **Save Orders to MongoDB:**
+   - I’ll use my order schema to structure and store each order in the `orders` collection.
+
+5. **Test the Endpoint:**
+   - I’ll make sure the endpoint works smoothly — handling data properly and saving orders correctly.
+
+---
+
+## 📥 Submission Guidelines
+
+1. **Push Code to GitHub:**
+   - I’ll commit and push everything to a publicly accessible GitHub repository.
+
+2. **Update README:**
+   - I’ll summarize my progress for this milestone (this file covers that!).
+
+3. **Submit the Link:**
+   - I’ll share my GitHub repository link in the assignment submission section.
+
+---
+# Milestone 26: Building an Orders Endpoint
+
+Hey there! 👋
+
+This milestone is all about creating an endpoint to fetch a user's orders. Let me walk you through the steps I followed to get this working smoothly.
+
+## 🎯 Goal
+The goal is to create an endpoint that takes a user’s email, retrieves their `_id`, and fetches all their orders — then returns those orders in the response.
+
+## 🚀 Steps I Took
+
+1. **Create the Endpoint**  
+   - I set up a new route that accepts a `POST` or `GET` request (depending on the API style I’m aiming for) and expects the user’s email in the request body or query params.
+
+2. **Extract User's `_id`**  
+   - Using the email provided, I queried the database to fetch the user’s `_id`.  
+   - If the email isn’t found, I return a clean, friendly error message — no cryptic errors here! 💪  
+
+3. **Retrieve User's Orders**  
+   - Once I had the user’s `_id`, I queried the `orders` collection (or whatever collection I’m using for orders) to pull all orders tied to that user.
+
+4. **Send Back the Orders**  
+   - Finally, I bundled the orders into a neat JSON response and sent it back. If no orders were found, I made sure to handle that gracefully with a message like, "Looks like this user hasn’t placed any orders yet."
+
+## 🛠️ Error Handling  
+   - **Invalid Email:** If the email doesn’t exist, I made sure to return a 404 with a friendly message.  
+   - **No Orders:** If the user exists but hasn’t placed any orders yet, the response still succeeds — but it’s an empty array with a helpful message.  
+   - **Server Errors:** I wrapped everything in a try-catch to handle any unexpected issues.  
+
+----
+
 
 
 
