@@ -70,28 +70,34 @@ const OrderConfirmation = () => {
 
     const handlePlaceOrder = async () => {
         try {
-            setLoading(true);
-            const response = await axios.post('http://localhost:8000/api/v2/product/place-order', {
+            const orderItems = cartItems.map(item => ({
+                product: item._id,
+                name: item.name,
+                quantity: item.quantity,
+                price: item.price,
+                image: item.images && item.images.length > 0 
+                    ? item.images[0] 
+                    : '/default-avatar.png'
+            }));
+    
+            const payload = {
                 email,
-                orderItems: cartItems.map(item => ({
-                    product: item._id,
-                    name: item.name,
-                    quantity: item.quantity,
-                    price: item.price,
-                    image: item.images[0]
-                })),
-                shippingAddress: selectedAddress
-            });
-
-            if (response.status === 201) {
-                navigate('/order-success', { state: { orders: response.data.orders } });
-            }
-        } catch (err) {
-            setError(err.response?.data?.message || err.message || 'An unexpected error occurred while placing the order.');
-        } finally {
-            setLoading(false);
+                shippingAddress: selectedAddress,
+                orderItems
+            };
+    
+            const response = await axios.post(
+                'http://localhost:8000/api/v2/orders/place-order',
+                payload
+            );
+    
+            console.log('Orders placed successfully', response.data);
+            navigate('/order-success');
+        } catch (error) {
+            console.error('Error placing the orders: ', error);
         }
     };
+    
 
     if (loading) {
         return (

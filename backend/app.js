@@ -5,6 +5,7 @@ const cors = require("cors");
 const errorHandler = require("./middleware/error");
 app.use(errorHandler);
 const path = require("paths");
+const orders = require('./controller/order');
 
 
 app.use(express.json());

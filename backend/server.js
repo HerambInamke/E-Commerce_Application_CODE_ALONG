@@ -5,6 +5,7 @@ const path = require('path');
 const productRoutes = require('./controller/product');
 const userRoutes = require('./controller/user');
 const errorHandler = require('./middleware/error');
+const orders = require('./controller/order');
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -17,9 +18,12 @@ app.use(cors());
 // Static files
 app.use('/products', express.static(path.join(__dirname, 'products')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use("api/v2/orders",orders);
 
 // Routes
 app.use('/api/v2/user', userRoutes);
+
 app.use('/api/v2/product', productRoutes);
 
 // Error handling
