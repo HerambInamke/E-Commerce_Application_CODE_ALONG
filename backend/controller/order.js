@@ -2,60 +2,52 @@ const express = require('express');
 const router = express.Router();
 const Order = require('../model/order');
 const User = require('../model/user');
-const Cart = require('../model/cart'); // Ensure this exists
-// const router = express.Router();
 
-router.post('/place-order', async (req, res) => {
-    try {
-        const { email, orderItems, shippingAddress } = req.body;
+router.post('/place-order', async(req, res) => {
+    try{
+        const{email, orderItems, shippingAddress} = req.body;
 
-        // Validate email
-        if (!email) {
-            return res.status(400).json({ message: "Please provide a valid email address" });
+        //Validate request data
+        if(!email) {
+            return res.status(400).json({message: 'Email is required'});
+        }
+        if(!orderItems || !Array.isArray(orderItems) || orderItems.length === 0) {
+            return res.status(400).json({message: 'Order items are required.'});
+        }
+        if(!shippingAddress) {
+            return res.status(400).json({message: 'Shipping Address is required'});
         }
 
-        // Validate order items
-        if (!orderItems || !Array.isArray(orderItems) || orderItems.length === 0) {
-            return res.status(400).json({ message: "Order items required" });
+        const user = await User.findOne({email})
+        if(!user) {
+            return res.status(404).json({message: 'User is not found.'});
         }
 
-        // Validate shipping address
-        if (!shippingAddress) {
-            return res.status(400).json({ message: "Shipping address required" });
-        }
-
-        // Find user
-        const user = await User.findOne({ email });
-
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
-
-        // Create orders for each item
         const orderPromises = orderItems.map(async (item) => {
-            const totalAmount = item.price * item.quantity;
+            const totalAmount = item.price*item.quantity;
             const order = new Order({
                 user: user._id,
-                orderItems: [item],
+                orderItems,
                 shippingAddress,
-                totalAmount: totalAmount
+                totalAmount,
             });
-            return await order.save();
+            return order.save();
         });
 
-        await Promise.all(orderPromises);
+        const orders = await Promise.all(orderPromises);
 
-        // Clear user cart after order
-        await Cart.deleteMany({ user: user._id });
+        //clear user's cart after placing the order
+        await Cart.deleteMany({user: user._id});
 
-        res.status(201).json({ message: "Order created successfully",orders });
-
-    } catch (err) {
-        console.error(err);
-        return res.status(500).json({ message: "Internal server error" });
+        res.status(201).json({message: 'Orders placed and cart cleared successfully',orders})
     }
+    catch(error) {
+        console.error('Error placing orders:', error);
+        res.status(500).json({message: error.message});
+    }
+});
 
- router.get('/my-orders', async (req, res) => {
+router.get('/my-orders', async (req, res) => {
     try{
         const {email} = req.query;
 
@@ -75,6 +67,26 @@ router.post('/place-order', async (req, res) => {
         res.status(500).json({message: error.message});
     }
 });
+
+router.patch('/cancel-order/:orderId', async (req, res) => {
+    try {
+        const {orderId} = req.params;
+
+        const order = await Order.findById(orderId);
+        console.log(order);
+
+        if(!order) {
+            return res.status(404).json({message: 'Order not found'});
+        }
+
+        order.orderStatus = 'Cancelled';
+        await order.save();
+
+        res.status(200).json({message: 'Order cancelled successfully'});
+    } catch(error) {
+        console.error('Error cancelling the order:', error);
+        res.status(500).json({message: error.message});
+    }
 });
 
 module.exports = router;

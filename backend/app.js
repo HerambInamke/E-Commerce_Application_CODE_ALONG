@@ -10,7 +10,7 @@ const orders = require('./controller/order');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use("/api/v2/orders",orders);
 // Use CORS middleware
 app.use(cors());
 

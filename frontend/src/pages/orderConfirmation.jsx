@@ -81,9 +81,14 @@ const OrderConfirmation = () => {
             }));
     
             const payload = {
-                email,
-                shippingAddress: selectedAddress,
-                orderItems
+                shippingAddress: {
+                    address1: selectedAddress.address1,
+                    address2: selectedAddress.address2 || "",
+                    city: selectedAddress.city,
+                    state: selectedAddress.state,
+                    zipCode: selectedAddress.zipCode, 
+                    country: selectedAddress.country
+                },
             };
     
             const response = await axios.post(

@@ -63,6 +63,34 @@ const Navbar = () => {
                         <NavLink to="/profile" className={navLinkClass} onClick={() => setIsOpen(false)}>
                             Profile
                         </NavLink>
+                        <li>
+                                 <NavLink
+                                     to='/myorders'
+                                     end
+                                     className={({ isActive }) =>
+                                         isActive
+                                             ? 'text-white font-semibold px-3 py-2 rounded-md'
+                                             : 'text-gray-200 hover:text-white px-3 py-2 rounded-md text-sm transition-colors duration-200'
+                                     }
+                                     onClick={() => setIsOpen(false)}
+                                     >
+                                     My Orders
+                                 </NavLink>
+                             </li> 
+                             <li>
+                             <NavLink
+                                 to='/'
+                                 end
+                                 className={({ isActive }) =>
+                                     isActive
+                                         ? 'text-white font-semibold px-3 py-2 rounded-md'
+                                         : 'text-gray-200 hover:text-white px-3 py-2 rounded-md text-sm transition-colors duration-200'
+                                 }
+                                 onClick={() => setIsOpen(false)}> //close the link on clicking menu
+                                 Home
+                             </NavLink>
+                         </li> 
+                        
                     </div>
                 </div>
             )}

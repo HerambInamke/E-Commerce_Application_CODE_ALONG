@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import axios from 'axios';
-import Navbar from '../components/nav';
+import Navbar from '../components/Nav';
 import { useNavigate } from 'react-router-dom';
 
 function CreateAddress() {
     const navigate = useNavigate();
+    const [zipCode, setZipCode] = useState("");
     const [formData, setFormData] = useState({
         country: "",
         city: "",
@@ -27,7 +28,13 @@ function CreateAddress() {
 
         const addressData = {
             ...formData,
-            email: "coco@gmail.com"
+            email: "coco@gmail.com",
+            country,
+            city,
+            address1,
+            address2,
+            zipCode,
+            addressType,
         };
 
         try {

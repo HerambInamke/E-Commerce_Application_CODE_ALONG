@@ -9,4 +9,5 @@ import Profile from "../pages/profile.jsx";
 import CreateAddress from "../pages/createAddress.jsx";
 import SelectAddress from "../pages/selectAddress.jsx";
 import OrderConfirmation from "../pages/orderConfirmation.jsx";
-export {LoginPage,SignupPage,Home, CreateProduct, Cart, ProductDetails, Profile, CreateAddress, SelectAddress, OrderConfirmation};
+import CreateAddress from "../pages/createAddress.jsx"
+export {LoginPage,SignupPage,Home, CreateProduct, Cart, ProductDetails, Profile, CreateAddress, SelectAddress, OrderConfirmation, MyOrdersPage};

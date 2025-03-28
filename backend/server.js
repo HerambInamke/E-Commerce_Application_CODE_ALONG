@@ -19,8 +19,7 @@ app.use(cors());
 app.use('/products', express.static(path.join(__dirname, 'products')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use("api/v2/orders",orders);
-
+app.use("/api/v2/orders",orders);
 // Routes
 app.use('/api/v2/user', userRoutes);
 
