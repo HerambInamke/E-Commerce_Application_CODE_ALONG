@@ -5,13 +5,12 @@ import { useNavigate } from 'react-router-dom';
 
 function CreateAddress() {
     const navigate = useNavigate();
-    const [zipCode, setZipCode] = useState("");
     const [formData, setFormData] = useState({
         country: "",
         city: "",
         address1: "",
         address2: "",
-        zipcode: 0,
+        zipcode: "",
         addresstype: ""
     });
 
@@ -28,13 +27,8 @@ function CreateAddress() {
 
         const addressData = {
             ...formData,
-            email: "coco@gmail.com",
-            country,
-            city,
-            address1,
-            address2,
-            zipCode,
-            addressType,
+            email: "coco@gmail.com", // This should come from your auth context
+            zipCode: parseInt(formData.zipcode)
         };
 
         try {
@@ -76,7 +70,7 @@ function CreateAddress() {
                                     name="country"
                                     value={formData.country}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                                     placeholder="Enter country"
                                     required
                                 />
@@ -91,7 +85,7 @@ function CreateAddress() {
                                     name="city"
                                     value={formData.city}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                                     placeholder="Enter city"
                                     required
                                 />
@@ -107,7 +101,7 @@ function CreateAddress() {
                                 name="address1"
                                 value={formData.address1}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                                 placeholder="Enter address line 1"
                                 required
                             />
@@ -122,7 +116,7 @@ function CreateAddress() {
                                 name="address2"
                                 value={formData.address2}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                                 placeholder="Enter address line 2"
                             />
                         </div>
@@ -133,11 +127,11 @@ function CreateAddress() {
                                     ZIP Code
                                 </label>
                                 <input
-                                    type="number"
+                                    type="text"
                                     name="zipcode"
                                     value={formData.zipcode}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                                     placeholder="Enter ZIP code"
                                     required
                                 />
@@ -151,7 +145,7 @@ function CreateAddress() {
                                     name="addresstype"
                                     value={formData.addresstype}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                                     required
                                 >
                                     <option value="">Select type</option>
@@ -173,8 +167,8 @@ function CreateAddress() {
                             </button>
                             <button
                                 type="submit"
-                                className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold
-                                    hover:bg-blue-700 transform hover:scale-105
+                                className="px-6 py-3 bg-primary-600 text-white rounded-lg font-semibold
+                                    hover:bg-primary-700 transform hover:scale-105
                                     transition-all duration-200 shadow-md"
                             >
                                 Add Address

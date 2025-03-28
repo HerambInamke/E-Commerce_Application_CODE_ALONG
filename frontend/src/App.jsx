@@ -24,14 +24,14 @@ const App = () => {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/product" element={<CreateProduct />} />
         <Route path="/product/:id" element={<CreateProduct />} />
-        {/* <Route path="/myproducts" element={<MyProducts />} /> */}
         <Route path="/cart" element={<Cart />} />
         <Route path="/productDetails/:id" element={<ProductDetails />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/create-address" element={<CreateAddress />} />
         <Route path="/select-address" element={<SelectAddress />} />
         <Route path="/order-confirmation" element={<OrderConfirmation />} />
-        <Route path='/myorders' element={<MyOrdersPage/>}/>
+        <Route path="/myorders" element={<MyOrdersPage />} />
+        {/* <Route path="/myproducts" element={<MyProducts />}/> */}
       </Routes>
     </BrowserRouter>
   );

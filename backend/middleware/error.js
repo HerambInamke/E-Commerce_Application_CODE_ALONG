@@ -12,13 +12,14 @@ module.exports = (err, req, res, next) => {
 
     // Mongoose duplicate key error
     if (err.code === 11000) {
-        const message = `Duplicate ${Object.keys(err.keyValue)} entered`;
+        const field = Object.keys(err.keyValue)[0];
+        const message = `${field.charAt(0).toUpperCase() + field.slice(1)} already exists`;
         err = new ErrorHandler(message, 400);
     }
 
     // JWT Error
     if (err.name === "JsonWebTokenError") {
-        const message = "Invalid token, please try again";
+        const message = "Invalid token, please login again";
         err = new ErrorHandler(message, 401);
     }
 
@@ -28,9 +29,16 @@ module.exports = (err, req, res, next) => {
         err = new ErrorHandler(message, 401);
     }
 
+    // Validation Error
+    if (err.name === "ValidationError") {
+        const message = Object.values(err.errors).map(value => value.message).join(', ');
+        err = new ErrorHandler(message, 400);
+    }
+
     res.status(err.statusCode).json({
         success: false,
         message: err.message,
-        stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
+        stack: process.env.NODE_ENV === 'development' ? err.stack : undefined,
+        error: process.env.NODE_ENV === 'development' ? err : undefined
     });
 };

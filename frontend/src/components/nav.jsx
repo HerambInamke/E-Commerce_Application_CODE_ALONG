@@ -7,8 +7,8 @@ const Navbar = () => {
     const navLinkClass = ({ isActive }) =>
         `px-4 py-2 rounded-lg transition-all duration-300 ${
             isActive
-                ? "bg-blue-600 text-white hover:bg-blue-700"
-                : "text-gray-700 hover:bg-blue-50"
+                ? "bg-primary-600 text-white hover:bg-primary-700"
+                : "text-gray-700 hover:bg-primary-50"
         }`;
 
     return (
@@ -18,8 +18,8 @@ const Navbar = () => {
                     <div className="flex items-center md:hidden">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
-                            className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-2 rounded-lg
-                                transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            className="text-gray-700 hover:text-primary-600 hover:bg-primary-50 p-2 rounded-lg
+                                transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-400"
                         >
                             <span className="sr-only">Toggle Menu</span>
                             {!isOpen ? (
@@ -40,6 +40,7 @@ const Navbar = () => {
                         <NavLink to="/product" className={navLinkClass}>Add Product</NavLink>
                         <NavLink to="/cart" className={navLinkClass}>Cart</NavLink>
                         <NavLink to="/profile" className={navLinkClass}>Profile</NavLink>
+                        <NavLink to="/myorders" className={navLinkClass}>My Orders</NavLink>
                     </div>
                 </div>
             </div>
@@ -63,34 +64,9 @@ const Navbar = () => {
                         <NavLink to="/profile" className={navLinkClass} onClick={() => setIsOpen(false)}>
                             Profile
                         </NavLink>
-                        <li>
-                                 <NavLink
-                                     to='/myorders'
-                                     end
-                                     className={({ isActive }) =>
-                                         isActive
-                                             ? 'text-white font-semibold px-3 py-2 rounded-md'
-                                             : 'text-gray-200 hover:text-white px-3 py-2 rounded-md text-sm transition-colors duration-200'
-                                     }
-                                     onClick={() => setIsOpen(false)}
-                                     >
-                                     My Orders
-                                 </NavLink>
-                             </li> 
-                             <li>
-                             <NavLink
-                                 to='/'
-                                 end
-                                 className={({ isActive }) =>
-                                     isActive
-                                         ? 'text-white font-semibold px-3 py-2 rounded-md'
-                                         : 'text-gray-200 hover:text-white px-3 py-2 rounded-md text-sm transition-colors duration-200'
-                                 }
-                                 onClick={() => setIsOpen(false)}> //close the link on clicking menu
-                                 Home
-                             </NavLink>
-                         </li> 
-                        
+                        <NavLink to="/myorders" className={navLinkClass} onClick={() => setIsOpen(false)}>
+                            My Orders
+                        </NavLink>
                     </div>
                 </div>
             )}

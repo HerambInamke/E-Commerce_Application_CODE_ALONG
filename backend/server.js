@@ -29,7 +29,7 @@ app.use('/api/v2/product', productRoutes);
 app.use(errorHandler);
 
 // MongoDB Connection
-const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://heramb:inamke@cluster0.wycsh.mongodb.net/test?retryWrites=true&w=majority&tls=true';
+const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://heramb:coco1501@cluster0.wycsh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
