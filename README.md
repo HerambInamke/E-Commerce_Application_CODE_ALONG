@@ -1045,3 +1045,28 @@ The Cancel Order feature allows users to cancel their placed orders. This involv
 ## 🎯 Conclusion
 
 This milestone enhances the My Orders page by allowing users to cancel their orders when needed. It helps in understanding how to modify order statuses and manage data updates dynamically.
+
+---
+
+# MileStone 29: PayPal
+# Setting Up PayPal for Online Payments
+
+## 1. Create a PayPal Developer Account
+First things first, head over to the **PayPal Developer Dashboard** and create a PayPal account if you haven’t already. This will give us access to the developer tools we need.
+
+## 2. Set Up a Sandbox Account
+Once you're logged in, navigate to the **Sandbox Accounts** section. Here, you’ll find a test account created by PayPal for development purposes.
+
+- Copy the **User ID** of this sandbox account and save it for later.
+- Inside the sandbox account details, locate your **Client ID**, copy it, and keep it safe. We’ll need this soon.
+
+## 3. Implement Payment Options in the Order Confirmation Page
+Now, let’s work on adding the payment options to our order confirmation page.
+
+- We need two payment methods:
+  1. **Cash on Delivery (COD)**
+  2. **Online Payment using PayPal**
+- Create radio buttons to let users select between **COD** and **Online Payment**.
+- If the user selects **Online Payment**, the PayPal payment buttons should appear dynamically on the page.
+
+---
