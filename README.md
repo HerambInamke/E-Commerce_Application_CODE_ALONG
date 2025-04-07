@@ -1091,3 +1091,34 @@ Now, let’s work on adding the payment options to our order confirmation page.
    ```bash
    npm install @paypal/react-paypal-js
 ---
+# Milestone 31 – Global State Management with Redux 🎯
+
+Hey there! 👋  
+This milestone was all about learning how to use Redux for managing global state in a React app. It felt like leveling up from local component state to something way more powerful and scalable.
+
+-
+
+## 🧠 What I Learned
+
+By the end of this, I figured out how to:
+
+- Use **Redux** for global state management across the entire app.
+- Set up a **Redux store** to handle shared states (in this case, user email).
+- Dispatch actions and write reducers to update that global state cleanly.
+
+-
+
+## 🛠️ Steps I Took
+
+Here’s what I did, step by step:
+
+1. Installed the `react-redux` package using npm.
+2. Created a new folder named `store` and added two files:
+   - `store.js`
+   - `userActions.js`
+3. The goal was to store the **user’s email** in a global state.
+4. In `store.js`, I configured a Redux store using a `userReducer` function that handles the user email logic.
+5. Inside `userActions.js`, I wrote a `setEmail` function to help update the email state globally.
+6. Finally, in `index.js`, I wrapped the `App` component with the `<Provider>` component and passed the store as a prop.
+
+---
