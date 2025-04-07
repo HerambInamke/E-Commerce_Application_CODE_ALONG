@@ -1070,3 +1070,24 @@ Now, let’s work on adding the payment options to our order confirmation page.
 - If the user selects **Online Payment**, the PayPal payment buttons should appear dynamically on the page.
 
 ---
+
+# 💸 Integrating PayPal Payments – 
+
+## 🧠 What I Learned
+- How to use the PayPal API for payment integration
+- How to enable online payments in a React app
+- How to use `react-paypal-js` to embed PayPal payment options
+
+## 📝 Milestone 30 – My Steps
+
+1. **Created a PayPal Sandbox Account**  
+   I visited [developer.paypal.com](https://developer.paypal.com/), created a sandbox account, and grabbed the User ID.
+
+2. **Got My Client ID**  
+   Inside the PayPal developer dashboard, I generated my sandbox client ID — this is what I used to connect my app to PayPal’s services.
+
+3. **Installed the PayPal React Package**  
+   I installed the `@paypal/react-paypal-js` package using npm:
+   ```bash
+   npm install @paypal/react-paypal-js
+---
