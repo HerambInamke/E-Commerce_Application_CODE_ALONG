@@ -1122,3 +1122,18 @@ Here’s what I did, step by step:
 6. Finally, in `index.js`, I wrapped the `App` component with the `<Provider>` component and passed the store as a prop.
 
 ---
+# 🧠 Milestone 32 - Follow-Along Project
+## 🎯 What I Learned
+
+By completing this milestone, I learned how to:
+
+- Use **Redux** to manage global state in a React application.
+- Store data (like email) using the `dispatch` method.
+- Access that stored data using `useSelector` across multiple components.
+
+---
+
+## 🛠️ What I Did
+
+1. On the **Login page**, I used `dispatch` to store the user's email in the global Redux state.
+2. On the remaining pages, I used `useSelector` to retrieve and use that email wherever needed.
