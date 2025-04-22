@@ -25,7 +25,8 @@ app.use(userrouter); // For
 const upload = multer({ dest: 'uploads/' });
 
 // Connect to MongoDB
-const mongoURI = 'mongodb+srv://raphdesantos:raph13600@cluster0.hj8ng.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'; // Replace with your MongoDB URI
+const mongoURI = `mongodb+srv://heramb:coco1501@cluster0.wycsh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("✅Database connection successful"))
   .catch((err) => console.error("❌Database connection error:", err));
