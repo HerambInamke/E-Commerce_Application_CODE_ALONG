@@ -1,8 +1,10 @@
+//eslint-disable-next-line
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import Nav from "../components/nav";
 import { useLocation, useNavigate } from 'react-router-dom';
-import {PayPalScriptProvider,PayPalButtons} from '@paypal/react-paypal-js';
+
+import {PayPalScriptProvider, PayPalButtons} from "@paypal/react-paypal-js";
 
 const OrderConfirmation = () => {
     const location = useLocation();
@@ -15,7 +17,8 @@ const OrderConfirmation = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-        const [paymentMethod,setPaymentMethod]=useState('cod');
+    //2) Track which payment method is selected
+    const [paymentMethod, setPaymentMethod] = useState('cod');
 
     useEffect(() => {
         if(!addressId || !email) {
@@ -64,7 +67,7 @@ const OrderConfirmation = () => {
                 setTotalPrice(total);
             } catch(err) {
                 console.error('Error fetching data:', err);
-                setError(err.response?.data?.message || err.message || 'An unexpected error occurred');
+                setError(err.response?.data?.message || err.message || 'An unexpexted error occurred');
             } finally {
                 setLoading(false);
             }
@@ -73,7 +76,7 @@ const OrderConfirmation = () => {
         fetchData();
     }, [addressId, email, navigate]);
 
-    const handlePlaceOrder = async (paymentType='cod', paypalOrderData=null) => {
+    const handlePlaceOrder = async (paymentType = 'cod', paypalOrderData = null) => {
         try{
             const orderItems = cartItems.map(item => ({
                 product: item._id,
@@ -90,13 +93,14 @@ const OrderConfirmation = () => {
                     city: selectedAddress.city,
                     state: selectedAddress.state,
                     zipCode: selectedAddress.zipCode, 
-                    country: selectedAddress.country
+                    country: selectedAddress.country,
+                    paymentMethod: paymentType,
+                    paypalOrderData,
                 },
                 orderItems,
-                paymentMethod:paymentType,
-                paypalOrderData,
             };
             console.log("Payload being sent:", payload);
+
 
             const response = await axios.post('http://localhost:8000/api/v2/orders/place-order', payload);
             console.log('Orders placed successfully!', response.data);
@@ -186,6 +190,7 @@ const OrderConfirmation = () => {
                     <div className='mb-6 flex justify-end'>
                         <p className='text-xl font-semibold'>Total: ${totalPrice.toFixed(2)}</p>
                     </div>
+
                         {/* Payment Method (Cash on Delivery or PayPal) */}
                      <div className='mb-6'>
                         <h3 className='text-xl font-medium mb-2'>Payment Method</h3>
@@ -211,11 +216,11 @@ const OrderConfirmation = () => {
                                 <span className='ml-2'>Pay Online (PayPal)</span>
                             </label>
                         </div>
-                            {paymentMethod === 'paypal' && (
+                        {paymentMethod === 'paypal' && (
                             <div className='mt-4' style={{ maxWidth: '500px' }}>
                                 <PayPalScriptProvider
                                     options={{
-                                        'client-id': 'AapgmGvxFKztKUaQw6VRpPa6sRVD7AwV7sUTvvZYZUxtKBPBClzXCSxFgCbfh9rUaoQWlUqoE2cscrh7', 
+                                        'client-id': 'AfdCPjZMCJCv503ZQ6HUyfmpo9fek2nuRLwkhU0CL4Kc-qmoZ1RVtytvI8qe_tQC8iPALE2WkPFHdKdN', 
                                     }}
                                 >
                                     <PayPalButtons
@@ -258,12 +263,10 @@ const OrderConfirmation = () => {
                             </button>
                         </div>
                     )}
-
-                  
                 </div>
             </div>
         </div>
     );
 }
 
-export default OrderConfirmation;
+export default OrderConfirmation; 

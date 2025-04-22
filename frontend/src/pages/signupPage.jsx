@@ -1,18 +1,16 @@
-import React, { useState } from "react";
+//eslint-disable-next-line
+import React, { useState, useEffect } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { RxAvatar } from "react-icons/rx";
 import axios from "axios";
 
 const SignupPage = () => {
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
   const [avatar, setAvatar] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
   const handleFileSubmit = (e) => {
     const file = e.target.files[0];
@@ -21,38 +19,29 @@ const SignupPage = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError("");
     
-    const formData = new FormData();
-    formData.append("file", avatar);
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("password", password);
+    // Create a new FormData instance and append data
+    const newForm = new FormData();
+    newForm.append("file", avatar);
+    newForm.append("name", name);
+    newForm.append("email", email);
+    newForm.append("password", password);
     
-    try {
-      const res = await axios.post(
-        "http://localhost:8000/api/v2/user/create-user",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data"
-          }
-        }
-      );
+ 
+    const config = {
+      headers: {
+        "Content-type": "multipart/form-data",
+        "Accept": "any",
+      },
+    };
 
-      if (res.status === 201) {
-        alert("Registration successful!");
-        navigate("/login");
-      }
-    } catch (err) {
-      console.error("Registration error:", err);
-      setError(err.response?.data?.message || "Registration failed. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+    // Send the POST request to the backend
+    axios
+      .post("http://localhost:8000/create-user", newForm, config)
+      .then((res) => console.log("Response: ", res.data)) // Log successful response
+      .catch((err) => console.log("Error: ", err)); // Log error
   };
 
   return (
@@ -64,13 +53,7 @@ const SignupPage = () => {
       </div>
 
       <div className="mt-8 sm:w-full sm:max-w-md mx-auto">
-        <div className="bg-white py-8 px-4 shadow-lg sm:rounded-lg sm:px-10 hover:shadow-2xl transition-all duration-300">
-          {error && (
-            <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
-              {error}
-            </div>
-          )}
-
+        <div className="bg-white py-8 px-4 shadow-lg sm:rounded-lg sm:px-10 hover:scale-105 hover:shadow-2xl transition-transform duration-300">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
@@ -168,16 +151,9 @@ const SignupPage = () => {
             <div>
               <button
                 type="submit"
-                disabled={loading}
-                className={`w-full h-[40px] flex justify-center items-center py-2 px-4 border text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 ${
-                  loading ? 'opacity-75 cursor-not-allowed' : ''
-                }`}
+                className="w-full h-[40px] flex justify-center py-2 px-4 border text-sm font-medium rounded-md text-white bg-blue-400 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
               >
-                {loading ? (
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                ) : (
-                  'Sign Up'
-                )}
+                Submit
               </button>
             </div>
 
@@ -187,7 +163,7 @@ const SignupPage = () => {
                 to="/login"
                 className="text-blue-500 pl-2 hover:underline transition-all duration-200"
               >
-                Login To Your Account 😊
+                Login To Your Account😊
               </Link>
             </div>
           </form>

@@ -1,91 +1,78 @@
-import Navbar from "../components/Nav"
-import CartProduct from '../components/cartProduct'
-import {useEffect, useState} from "react";
+import { useState, useEffect } from "react";
+import CartProducts from "../components/cartProduct";
+import Nav from "../components/nav";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 const Cart = () => {
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        fetch(`http://localhost:8000/api/v2/product/cartproducts?email=${'coco@gmail.com'}`)
-            .then((res) => {
-                if(!res.ok) {
-                    throw new Error(`HTTP error! status: ${res.status}`);
-                }
-                return res.json();
-            })
-            // console.log(object)
-            .then((data) => {
-                setProducts(data.cart.map(product => ({
-                    quantity: product.quantity,
-                    ...product.productId
-                })));
-                setLoading(false);
-            })
-            .catch((err) => {
-                console.error("Error fetching cart:", err);
-                setError(err.message);
-                setLoading(false);
-            });
-    }, []);
+  const email = useSelector((state) => state.user.email);
 
-    const calculateTotal = () => {
-        return products.reduce((total, product) => total + (product.price * product.quantity), 0);
-    };
+  useEffect(() => {
+    if (!email) return; // Don't make the API call if email is not available
+    
+    fetch(`http://localhost:8000/api/v2/product/cartproducts?email=${email}`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })  
+      .then((data) => {
+        console.log("Cart API response:", data);
+        if (data.cart && Array.isArray(data.cart)) {
+          setProducts(data.cart.map(product => ({
+            quantity: product.quantity,
+            ...product.productId
+          })));
+        } else {
+          setProducts([]); // Ensure it's always an array
+        }
+      })
+      .catch((err) => {
+        console.error("Error fetching cart products:", err);
+        setError(err.message);
+      });
+  }, [email]); // Add email to dependency array
 
-    return (
-        <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
-            <Navbar />
-            <div className="container mx-auto px-4 py-8">
-                <h1 className="text-4xl font-bold text-gray-900 text-center mb-8">
-                    Shopping Cart
-                </h1>
+    const handlePlaceOrder = () => {
+      navigate('/select-address');
+    }
 
-                {loading && (
-                    <div className="flex justify-center items-center h-64">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-                    </div>
-                )}
+  return (
+    <>
+      <Nav />
+      <div className="w-full h-full flex justify-center items-center">
+        <div className="w-full md:w-4/5 lg:w-4/6 2xl:w-2/3 h-full border-l border-r border-neutral-300 flex flex-col">
+          <div className="w-full md:w-4/5 lg:w-4/6">
+            <h1 className="text-2xl font-semibold text-gray-900 px-4 py-2">CART</h1>
+          </div>
 
-                {error && (
-                    <div className="text-center text-red-600 bg-red-100 p-4 rounded-lg mb-6">
-                        Error: {error}
-                    </div>
-                )}
+          <div className="w-full flex-grow overflow-auto px-3 py-2 gap-y-2">
+            {error ? (
+              <div className="text-red-500 text-center">{error}</div>
+            ) : products.length > 0 ? (
+              products.map((product) => <CartProducts key={product._id} {...product} />)
+            ) : (
+              <div className="text-gray-500 text-center py-5">Your cart is empty.</div>
+            )}
+          </div>
 
-                <div className="max-w-4xl mx-auto">
-                    {!loading && !error && products.length === 0 && (
-                        <div className="text-center text-gray-600 py-12 bg-white rounded-lg shadow">
-                            Your cart is empty.
-                        </div>
-                    )}
+          <div className='w-full p-4 flex justify-end'>
+              <button
+                    onClick={handlePlaceOrder}
+                    className='bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600'>
+                                  Place Order
+                    </button>
+              </div>
 
-                    <div className="space-y-4">
-                        {products.map(product => (
-                            <CartProduct key={product._id} {...product} />
-                        ))}
-                    </div>
-
-                    {products.length > 0 && (
-                        <div className="mt-8 bg-white rounded-lg shadow p-6">
-                            <div className="flex justify-between items-center mb-4">
-                                <span className="text-lg font-semibold text-gray-700">Total:</span>
-                                <span className="text-2xl font-bold text-blue-600">
-                                    ${calculateTotal().toFixed(2)}
-                                </span>
-                            </div>
-                            <button className="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold
-                                hover:bg-blue-700 transition-colors duration-200
-                                focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                                Proceed to Checkout
-                            </button>
-                        </div>
-                    )}
-                </div>
-            </div>
         </div>
-    );
-}
+      </div>
+    </>
+  );
+};
 
 export default Cart;

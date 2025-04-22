@@ -9,41 +9,52 @@ export default function AddressCard({
     addressType,
 }) {
     return (
-        <div className="bg-white rounded-xl shadow-md overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-            <div className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                    <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
-                        {addressType}
-                    </span>
+        <div className="w-full h-max bg-transparent p-5 rounded-lg border border-neutral-600 grid grid-cols-12 gap-4">
+            {/* Country */}
+            <div className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-2">
+                <div className="w-full h-max bg-neutral-700 p-4 rounded-lg flex flex-col items-center gap-y-2">
+                    <div className="text-xl text-neutral-200">Country</div>
+                    <div className="text-lg font-light text-neutral-200">{country}</div>
                 </div>
+            </div>
 
-                <div className="space-y-4">
-                    <div>
-                        <h3 className="text-sm font-medium text-gray-500">Country</h3>
-                        <p className="mt-1 text-lg text-gray-900">{country}</p>
-                    </div>
+            {/* City */}
+            <div className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-2">
+                <div className="w-full h-max bg-neutral-700 p-4 rounded-lg flex flex-col items-center gap-y-2">
+                    <div className="text-xl text-neutral-200">City</div>
+                    <div className="text-lg font-light text-neutral-200">{city}</div>
+                </div>
+            </div>
 
-                    <div>
-                        <h3 className="text-sm font-medium text-gray-500">City</h3>
-                        <p className="mt-1 text-lg text-gray-900">{city}</p>
-                    </div>
+            {/* Address 1 */}
+            <div className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-2">
+                <div className="w-full h-max bg-neutral-700 p-4 rounded-lg flex flex-col items-center gap-y-2">
+                    <div className="text-xl text-neutral-200">Address 1</div>
+                    <div className="text-lg font-light text-neutral-200">{address1}</div>
+                </div>
+            </div>
 
-                    <div>
-                        <h3 className="text-sm font-medium text-gray-500">Address Line 1</h3>
-                        <p className="mt-1 text-lg text-gray-900">{address1}</p>
-                    </div>
+            {/* Address 2 */}
+            <div className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-2">
+                <div className="w-full h-max bg-neutral-700 p-4 rounded-lg flex flex-col items-center gap-y-2">
+                    <div className="text-xl text-neutral-200">Address 2</div>
+                    <div className="text-lg font-light text-neutral-200">{address2}</div>
+                </div>
+            </div>
 
-                    {address2 && (
-                        <div>
-                            <h3 className="text-sm font-medium text-gray-500">Address Line 2</h3>
-                            <p className="mt-1 text-lg text-gray-900">{address2}</p>
-                        </div>
-                    )}
+            {/* Zip Code */}
+            <div className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-2">
+                <div className="w-full h-max bg-neutral-700 p-4 rounded-lg flex flex-col items-center gap-y-2">
+                    <div className="text-xl text-neutral-200">Zip Code</div>
+                    <div className="text-lg font-light text-neutral-200">{zipCode}</div>
+                </div>
+            </div>
 
-                    <div>
-                        <h3 className="text-sm font-medium text-gray-500">ZIP Code</h3>
-                        <p className="mt-1 text-lg text-gray-900">{zipCode}</p>
-                    </div>
+            {/* Address Type */}
+            <div className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-2">
+                <div className="w-full h-max bg-neutral-700 p-4 rounded-lg flex flex-col items-center gap-y-2">
+                    <div className="text-xl text-neutral-200">Address Type</div>
+                    <div className="text-lg font-light text-neutral-200">{addressType}</div>
                 </div>
             </div>
         </div>
@@ -54,7 +65,7 @@ AddressCard.propTypes = {
     country: PropTypes.string.isRequired,
     city: PropTypes.string.isRequired,
     address1: PropTypes.string.isRequired,
-    address2: PropTypes.string,
-    zipCode: PropTypes.number.isRequired,
+    address2: PropTypes.string.isRequired,
+    zipCode: PropTypes.string.isRequired,
     addressType: PropTypes.string.isRequired,
 };

@@ -1,125 +1,108 @@
-import React, { useState, useEffect } from 'react';
+//eslint-disable-next-line
+import {React, useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
-import Nav from '../components/Nav';
+import Nav from '../components/nav';
 
 const SelectAddress = () => {
-    const [addresses, setAddresses] = useState([]);
+    const [addresses, setAddresses] = useState([])
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
     
-    const userEmail = "coco@gmail.com"; // This should come from your auth context/state
-
-    useEffect(() => {
+    const userEmail = "dummy@gmail.com";
+    useEffect(()=>{
         const fetchAddresses = async () => {
-            try {
-                const response = await fetch(`http://localhost:8000/api/v2/user/profile?email=${userEmail}`);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+            try{
+                const response = await fetch(`http://localhost:8000/api/v2/user/address?email=${userEmail}`)
+                if(!response.ok){
+                    if(response.status===404){
+                        throw new Error('User not found');
+                    }else if(response.status===400){
+                        throw new Error('Bad request. Email parameter is missing');
+                    }else{
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
                 }
                 const data = await response.json();
-                setAddresses(data.addresses || []);
-            } catch (err) {
+                if(data && Array.isArray(data.addresses)){
+                    setAddresses(data.addresses);
+                }else{
+                    setAddresses([]);
+                    console.warn('Unexpected response structure: ', data);
+                }
+            }catch(err){
                 console.error('Error fetching addresses:', err);
                 setError(err.message || 'An unexpected error occurred.');
-            } finally {
+            }finally{
                 setLoading(false);
             }
-        };
+        }
         fetchAddresses();
     }, [userEmail]);
 
-    const handleSelectAddress = (addressId) => {
-        navigate('/order-confirmation', { 
-            state: { 
-                addressId, 
-                email: userEmail 
-            }
-        });
+    const handleSelectAddress = (addressID) => {
+        navigate('/checkout', { state: {addressID, email: userEmail }});
     };
 
-    if (loading) {
+    if(loading){
+            return (
+                <div className='w-full h-screen flex justify-center items-center'>
+                    <p className='text-lg'>Loading addresses...</p>
+                </div>
+            );
+        }
+    
+        // Render error state
+        if (error) {
+            return (
+                <div className='w-full h-screen flex flex-col justify-center items-center'>
+                    <p className='text-red-500 text-lg mb-4'>Error: {error}</p>
+                    <button
+                        onClick={() => window.location.reload()}
+                        className='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600'
+                    >
+                        Retry
+                    </button>
+                </div>
+            );
+        }
+    
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-50">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-            </div>
-        );
-    }
-
-    if (error) {
-        return (
-            <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
-                <p className="text-red-600 text-lg mb-4">Error: {error}</p>
-                <button
-                    onClick={() => window.location.reload()}
-                    className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                    Retry
-                </button>
-            </div>
-        );
-    }
-
-    return (
-        <div className="min-h-screen bg-gray-50">
-            <Nav />
-            <div className="max-w-4xl mx-auto px-4 py-8">
-                <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div className="p-6">
-                        <h2 className="text-2xl font-semibold text-gray-900 mb-6 text-center">
-                            Select Shipping Address
-                        </h2>
-                        
+            <div className='w-full min-h-screen flex flex-col'>
+                <Nav />
+                <div className='flex-grow flex justify-center items-center p-4'>
+                    <div className='w-full max-w-4xl border border-neutral-300 rounded-md flex flex-col p-6 bg-white shadow-md'>
+                        <h2 className='text-2xl font-semibold mb-6 text-center'>Select Shipping Address</h2>
                         {addresses.length > 0 ? (
-                            <div className="space-y-4">
+                            <div className='space-y-4 overflow-auto max-h-96'>
                                 {addresses.map((address) => (
                                     <div
                                         key={address._id}
-                                        className="border border-gray-200 p-4 rounded-lg hover:border-blue-200 transition-colors"
+                                        className='border p-4 rounded-md flex justify-between items-center hover:shadow-md transition-shadow'
                                     >
-                                        <div className="flex justify-between items-start">
-                                            <div>
-                                                <p className="font-medium text-gray-900">
-                                                    {address.address1}
-                                                    {address.address2 && `, ${address.address2}`}
-                                                </p>
-                                                <p className="text-gray-600 mt-1">
-                                                    {address.city}, {address.country}, {address.zipCode}
-                                                </p>
-                                                <p className="text-gray-500 mt-1">
-                                                    Type: {address.addressType || 'N/A'}
-                                                </p>
-                                            </div>
-                                            <button
-                                                onClick={() => handleSelectAddress(address._id)}
-                                                className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold
-                                                    hover:bg-blue-700 transform hover:scale-105
-                                                    transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                                            >
-                                                Select
-                                            </button>
+                                        <div>
+                                            <p className='font-medium'>
+                                                {address.address1}{address.address2 ? `, ${address.address2}` : ''}, {address.city}, {address.state}, {address.zipCode}
+                                            </p>
+                                            <p className='text-sm text-gray-600'>{address.country}</p>
+                                            <p className='text-sm text-gray-500'>Type: {address.addressType || 'N/A'}</p>
                                         </div>
+                                        <button
+                                            onClick={() => handleSelectAddress(address._id)}
+                                            className='bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400'
+                                        >
+                                            Select
+                                        </button>
                                     </div>
                                 ))}
                             </div>
                         ) : (
-                            <div className="text-center py-8">
-                                <p className="text-gray-600 text-lg">No addresses found.</p>
-                                <button
-                                    onClick={() => navigate('/create-address')}
-                                    className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold
-                                        hover:bg-blue-700 transform hover:scale-105
-                                        transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                                >
-                                    Add New Address
-                                </button>
-                            </div>
+                            <p className='text-center text-gray-700'>No addresses found. Please add an address.</p>
                         )}
                     </div>
                 </div>
             </div>
-        </div>
-    );
-};
+        );
+    }
 
 export default SelectAddress;
