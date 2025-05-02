@@ -983,4 +983,143 @@ By completing this milestone, I learned how to:
 
 1. On the **Login page**, I used `dispatch` to store the user's email in the global Redux state.
 2. On the remaining pages, I used `useSelector` to retrieve and use that email wherever needed.
->>>>>>> f8565dd436b0a1683a96957acf2b82d2bee0d6cb
+
+
+---
+
+# 🔐 Milestone 33 & 34: Implementing JWT Authentication
+
+This guide walks you through setting up JWT-based authentication in your web application using cookies. By the end, you'll be able to create, store, and validate tokens to protect routes and restrict access for unauthorized users.
+
+---
+
+## 🧩 Milestone 33: Creating & Storing the JWT Token
+
+### 1. Install the `jsonwebtoken` Package
+First, install the `jsonwebtoken` package using NPM:
+
+```bash
+npm install jsonwebtoken
+```
+
+### 2. Generate a Token Using User Info
+After a successful login, create a token that includes user-specific details like email and ID:
+
+```js
+const jwt = require('jsonwebtoken');
+
+const token = jwt.sign(
+  { email: user.email, id: user._id },
+  process.env.JWT_SECRET,
+  { expiresIn: '1d' } // Token will expire in 1 day
+);
+```
+
+### 3. Set Token Expiry with `maxAge`
+Define the maximum age for the cookie to control how long the user stays logged in:
+
+```js
+const maxAge = 24 * 60 * 60 * 1000; // 1 day in milliseconds
+```
+
+### 4. Store the Token in a Cookie
+Send the JWT token to the browser by attaching it to a cookie in the server response:
+
+```js
+res.cookie('token', token, {
+  httpOnly: true,
+  maxAge: maxAge,
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: 'Strict',
+});
+```
+
+This way, the token is stored securely and automatically sent with each request.
+
+---
+
+## 🔒 Milestone 34: Validating the Token & Protecting Routes
+
+### 1. Retrieve Token from Browser Cookie
+On each page load or API call, the token will be included in the request if it's stored in an HTTP-only cookie.
+
+### 2. Middleware to Validate JWT on Backend
+Create a reusable middleware function that verifies the token and attaches user data to the request:
+
+```js
+const jwt = require('jsonwebtoken');
+
+function authenticateToken(req, res, next) {
+  const token = req.cookies.token;
+  if (!token) return res.sendStatus(401); // Unauthorized
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) return res.sendStatus(403); // Forbidden
+    req.user = decoded;
+    next();
+  });
+}
+```
+
+Use this middleware on any route you want to protect.
+
+### 3. Restrict Frontend Access to Logged-in Users
+On the frontend, ensure each protected page checks if the user is authenticated. If not, redirect them to the login page.
+
+You can do this by:
+- Fetching a protected route (e.g. `/api/user`) and checking for an error.
+- Creating a route guard or wrapper component that handles this logic.
+
+---
+
+
+
+- ✅ How to generate and sign JWT tokens
+- ✅ How to store tokens in cookies securely
+- ✅ How to use middleware to validate tokens on the backend
+- ✅ How to protect frontend routes based on authentication
+
+> These steps form the foundation of a secure login system for your app.
+
+
+---
+
+# 🚀 Milestone 35: Deploying Your Full-Stack Application
+
+In this milestone, you’ll learn how to deploy both your backend and frontend applications using popular deployment services. This ensures your app is accessible to the world, not just on your local machine.
+
+---
+
+## 🔧 Step-by-Step Instructions
+
+### 1. Deploy Your Backend 🛠️
+- Choose a deployment platform like **Render**, **Railway**, **Vercel (for serverless)**, **Heroku**, or **Cylic**.
+- Push your backend code to GitHub (if not done already).
+- Connect your repo to the deployment platform and follow its steps to deploy.
+- Once deployed, you’ll get a live **backend URL** (e.g., `https://your-backend.onrender.com`).
+
+### 2. Replace Localhost with Backend Deployment URL 🌐
+- In your frontend code, wherever you made requests to `http://localhost:PORT`, **replace** it with your live backend URL.
+
+Example:
+```js
+// Before
+axios.get("http://localhost:5000/api/data");
+
+// After
+axios.get("https://your-backend.onrender.com/api/data");
+```
+
+### 3. Deploy Your Frontend 💻
+- Use platforms like **Vercel**, **Netlify**, or **Firebase Hosting**.
+- Connect your frontend repo and deploy.
+- You’ll receive a live **frontend URL**.
+
+### 4. Test Your Deployment ✅
+- Visit both the frontend and backend URLs.
+- Ensure API requests from frontend work correctly (check DevTools -> Network tab).
+- Make sure cookies (if used) are transferred properly, especially in production (`withCredentials`, CORS, etc.).
+
+---
+
+
